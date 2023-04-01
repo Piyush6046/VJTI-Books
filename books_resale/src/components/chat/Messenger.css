@@ -8,12 +8,13 @@
   border-right: 2px solid rgb(216, 213, 213);
 }
 .chatBox {
-  flex: 4;
+  flex: 7;
   padding-left: 8px;
+  margin-right: 50px;
 }
-.chatOnline {
+/* .chatOnline {
   flex: 3;
-}
+} */
 
 .chatBoxTop{
   height: 65vh;
@@ -40,7 +41,7 @@
   margin-top: 5px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .chatMessageInput{
@@ -59,4 +60,19 @@
   border-radius: 5px;
   cursor: pointer;
   background-color: #ffbf00;
+}
+
+.chatSubmitButton:hover{
+  background-color: white;
+  border:1px solid #ffbf00 
+}
+
+.chatSubmitButton:active{
+  background-color: #f1db98;
+  border:1px solid #ffbf00 
+}
+
+.chatSubmitButton:disabled{
+  background-color: #f1db98;
+  border:1px solid #ffbf00 
 }

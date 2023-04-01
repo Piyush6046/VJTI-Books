@@ -1,9 +1,10 @@
 import UserModel from "../model/UserModel.js";
 
 export const getUser = async(req,res) => {
-  const {id} = req.params;
+  const {userId} = req.params;
+
   try {
-    const user = await UserModel.findById(id);
+    const user = await UserModel.findById(userId);
     if(user){
       const {password,...otherdetails} = user._doc;
       // here insteead of sending whole user we will exclude pasword field from it

@@ -6,6 +6,8 @@ import dotenv from 'dotenv'
 import PostRoutes from './routes/post.js'
 import AuthRoutes from './routes/Auth.js'
 import UserRoutes from './routes/User.js'
+import ConversationRoutes from './routes/Conversation.js'
+import MessageRoutes from './routes/Message.js'
 
 const app = express();
 dotenv.config();
@@ -17,11 +19,13 @@ app.use(cors());
 app.use('/posts',PostRoutes);
 app.use('/auth',AuthRoutes);
 app.use('/user',UserRoutes);
+app.use('/conversations',ConversationRoutes);
+app.use('/messages',MessageRoutes);
 
 mongoose.set("strictQuery",false);
 const PORT = process.env.PORT || 5000;
 
-const CONNECTION_URL = 'mongodb+srv://books_resale:Sagar%401206@cluster0.pmtakm7.mongodb.net/?retryWrites=true&w=majority'
+// const CONNECTION_URL = 'mongodb+srv://books_resale:Sagar%401206@cluster0.pmtakm7.mongodb.net/?retryWrites=true&w=majority'
 
 mongoose.connect(process.env.CONNECTION_URL,{useNewUrlParser: true,useUnifiedTopology:true})
 	.then(()=>app.listen(PORT,()=>console.log(`Server is running on a PORT : ${PORT}`)))

@@ -4,8 +4,7 @@ import { useParams } from "react-router-dom";
 import { getPost } from "../../actions/postActions";
 import { useState } from "react";
 import "./PostDetails.css";
-import { Card } from "@mui/material";
-
+import { Card, CircularProgress } from "@mui/material";
 
 const PostDetails = () => {
   const { post } = useSelector((state) => state.posts);
@@ -13,13 +12,17 @@ const PostDetails = () => {
   const { id } = useParams();
   const [mainImage, setMainImage] = useState(post?.books_stack);
   const allImages = [post?.books_stack, post?.book1_img, post?.book2_img, post?.book3_img, post?.book4_img, post?.book5_img];
-
+  
   useEffect(() => {
     dispatch(getPost(id));
   }, [dispatch, id]);
+
   useEffect(() => {
     setMainImage(post?.books_stack);
   }, [post]);
+
+  if(!post) {return  (<div style={{height:'100vh',width:'100%',margin:'30vh 70vh'}}><CircularProgress color='inherit' size='5em'/></div>);}
+
   return (
 
     <div>

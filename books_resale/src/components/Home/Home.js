@@ -13,7 +13,7 @@ const Home = () => {
   },[dispatch]);
 
   return (
-    <Container maxWidth='xl'>
+    <Container maxWidth='xl' >
       <Container>
         <Grid container>
           <Grid item sm={0} justifyContent='end'>

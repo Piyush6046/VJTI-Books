@@ -86,8 +86,8 @@ function Auth() {
 
           <div>
             <input
-              type="text"
-              placeholder="email"
+              type="email"
+              placeholder="Email"
               className="infoInput"
               name="email"
               onChange={handleChange}
