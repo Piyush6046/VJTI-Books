@@ -44,7 +44,8 @@ const Post = ({ post}) => {
       sx={{
         maxWidth: 345,
         padding: 3,
-        backgroundColor: "#FFE996",
+        // backgroundColor: "#FFE996",
+        backgroundColor:'#fcda71',
         borderRadius: 5,
         ':hover': {
           boxShadow: 12, // theme.shadows[20]
@@ -103,6 +104,7 @@ const Post = ({ post}) => {
           <Button
             variant="contained"
             sx={{
+              // backgroundColor: "#F9C810",
               backgroundColor: "#F9C810",
               color: "black",
               marginLeft: 7,
