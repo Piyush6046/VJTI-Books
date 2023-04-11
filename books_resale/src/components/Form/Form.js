@@ -30,7 +30,7 @@ const Form = () => {
 
   if(!user){
     return(
-      <Paper className='paper' sx={{backgroundColor:'#fcf4dc  '}}>
+      <Paper elevation={5} className='paper' sx={{backgroundColor:'#fcf4dc',py:1,width:'50%',height:'50%',marginTop:'2%',marginX:'auto'}}>
         <Typography variant='h6' align='center'>
           Please sign in to <br/>
            fill the form <br/>

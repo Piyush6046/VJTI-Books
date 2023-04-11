@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -14,17 +14,32 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Bookmark from "@mui/icons-material/Bookmark";
 import Divider from "@mui/material/Divider";
 import "./Post.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deletePost } from "../../../actions/postActions";
 import { useNavigate } from "react-router-dom";
+import { getSavedPosts, savePost } from "../../../actions/userActions";
 
-const Post = ({ post }) => {
+const Post = ({ post}) => {
   const [isSaved, setIsSaved] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const openPost = () => navigate(`/books/${post._id}`);
+  const user = JSON.parse(localStorage?.getItem('profile'));
+
+  const handleSave = () => {
+    setIsSaved(!isSaved);
+    const savedPosts = dispatch(savePost(post._id));
+  }
+
+  // const SaveIcon = () => {
+  //   return savedposts?.some((savedpost)=>post._id===savedpost._id) ? (
+  //     <Bookmark sx={{ fontSize: '35px' }} />
+  //   ) : (
+  //     <BookmarkBorderIcon sx={{ fontSize: '35px' }} />
+  //   )
+  // }
+  
   return (
-    // <Paper elevation={2} sx={{borderRadius:1,p:1.5}}>
     <Card elevation={4}
       sx={{
         maxWidth: 345,
@@ -44,18 +59,6 @@ const Post = ({ post }) => {
         image={post.books_stack}
         sx={{ borderRadius: 5 }}
       />
-      {/* <IconButton
-        onClick={() => {
-          setIsSaved(!isSaved);
-        }}
-        sx={{ marginLeft: 34 }}
-      >
-        {isSaved ? (
-          <Bookmark sx={{ fontSize: 35 }} />
-        ) : (
-          <BookmarkBorderIcon sx={{ fontSize: 35 }} />
-        )}
-      </IconButton> */}
       <CardContent>
         <div style={{display:'flex',justifyContent:'space-between'}}>
         <Typography
@@ -72,16 +75,16 @@ const Post = ({ post }) => {
             " SEM "}
         </Typography>
         <IconButton
-        onClick={() => {
-          setIsSaved(!isSaved);
-        }}
-        sx={{ pt:0 }}
-      >
-        {isSaved ? (
-          <Bookmark sx={{ fontSize: '35px' }} />
-        ) : (
-          <BookmarkBorderIcon sx={{ fontSize: '35px' }} />
-        )}
+          onClick={handleSave}
+          sx={{ pt:0 }}
+          disabled={!user}>
+            {
+              isSaved ? (
+                <Bookmark sx={{ fontSize: '35px' }} />
+                ) : (
+                  <BookmarkBorderIcon sx={{ fontSize: '35px' }} />
+                )
+            }
       </IconButton>
       </div>
         <Typography
@@ -124,12 +127,7 @@ const Post = ({ post }) => {
 
         </Typography>
       </CardContent>
-      {/* <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
     </Card>
-    // </Paper>
   );
 };
 

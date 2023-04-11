@@ -5,6 +5,7 @@ import './Navbar.css'
 
 const Navbar = () => {
   const navigate = useNavigate();
+  var user = localStorage.getItem("profile");
   return (
     <div>
     <AppBar elevation={0} position="static" color='inherit' sx={{m:2,mb:0, borderRadius:2 ,p:1}} style={{display:'flex',flexDirection:'row',justifyContent:'space-around',backgroundColor:'rgba(1,1,0,0.0)'}}>
@@ -13,8 +14,12 @@ const Navbar = () => {
         <Button  sx={{color:'black',backgroundColor:'#ffda6c',px:2}} variant='outlined' onClick={()=>{navigate('/')}}> Home</Button>
         <Button  sx={{color:'black',backgroundColor:'#ffda6c '}} variant='outlined' onClick={()=>{navigate('/books')}}> Book Store</Button>
         <Button  sx={{color:'black',backgroundColor:'#ffda6c'}} variant='outlined' onClick={()=>{navigate('/form')}}> Form</Button>
-        <Button  sx={{color:'black',backgroundColor:'#ffda6c'}} variant='outlined' onClick={()=>{navigate('/auth')}}> Auth</Button>
+        {
+         user ? (<Button  sx={{color:'black',backgroundColor:'#ffda6c'}} variant='outlined' onClick={()=>{localStorage.clear();navigate('/auth')}}> Log Out</Button>) : 
+         (<Button  sx={{color:'black',backgroundColor:'#ffda6c'}} variant='outlined' onClick={()=>{navigate('/auth')}}> Sign In</Button>)
+        }
         <Button  sx={{color:'black',backgroundColor:'#ffda6c'}} variant='outlined' onClick={()=>{navigate('/chat')}}> chat</Button>
+        <Button  sx={{color:'black',backgroundColor:'#ffda6c'}} variant='outlined' onClick={()=>{navigate('/savedBooks')}}> saved books</Button>
       </div>
     </AppBar>
     <Divider variant='middle' sx={{color:'black',borderBottomWidth:'1.75px'}}/>

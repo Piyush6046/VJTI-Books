@@ -7,6 +7,7 @@ import Message from './Message/Message';
 import './Messenger.css'
 
 import {io} from 'socket.io-client'
+import { Paper, Typography } from '@mui/material';
 
 const Messenger = () => {
   const [messages, setMessages] = useState([]);
@@ -102,6 +103,17 @@ const Messenger = () => {
       scrollRef.current?.scrollIntoView({behavior:'smooth'});
   },[messages]);
   // console.log("messages are :" , messages);
+
+  if(!user){
+    return(
+      <Paper elevation={5} className='paper' sx={{backgroundColor:'#fcf4dc',py:1,width:'50%',height:'50%',marginTop:'2%',marginX:'auto'}}>
+        <Typography variant='h6' align='center'>
+          Please sign in to <br/>
+           access the chat feature <br/>
+        </Typography>
+      </Paper>
+    )
+  }
 
   return (
     <div className="messenger">

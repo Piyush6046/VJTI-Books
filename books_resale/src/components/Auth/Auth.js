@@ -3,11 +3,15 @@ import {useDispatch} from 'react-redux'
 import "./Auth.css";
 import logo from '../../images/logo.png'
 import { logIn , signUp } from "../../actions/authActions";
+import { Paper, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function Auth() {
-  const [isSignUp, setIsSignUp] = useState(true);
+  const [isSignUp, setIsSignUp] = useState(false);
   const [confirmPass,setConfirmPass] = useState(true)
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user  = JSON.parse(localStorage.getItem('profile')); 
 
   const [authData, setAuthData] = useState({
     firstname: "",
@@ -34,6 +38,7 @@ function Auth() {
     }else{
       dispatch(logIn(authData));
     }
+    navigate('/');
   }
 
   const resetForm = () => {
@@ -46,6 +51,17 @@ function Auth() {
       confirmpassword: "",
     });
   }
+
+  if(user){
+    return(
+      <Paper elevation={5} className='paper' sx={{backgroundColor:'#fcf4dc',py:2,width:'50%',height:'50%',marginTop:'2%',marginX:'auto'}}>
+        <Typography variant='h6' align='center'>
+          You are already Logged In <br/>
+        </Typography>
+      </Paper>
+    )
+  }
+
   return (
     <div className="Auth">
       <div>

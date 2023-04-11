@@ -21,9 +21,7 @@ export const fetchMessages = (conversationId) => async(dispatch) => {
 }
 
 export const sendMessage = (message) => async(disatch) => {
-  console.log("mmmm");
   try {
-    console.log("mmmm");
     const {data} = await api.sendMessage(message);
     console.log(data);
   } catch (error) {

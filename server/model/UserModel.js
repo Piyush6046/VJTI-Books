@@ -22,6 +22,10 @@ const UserSchema = schema({
   isAdmin:{
     type:Boolean,
     default:false
+  },
+  savedbooks:{
+    type:[String],
+    default:[]
   }
 },{
   timestamps:true

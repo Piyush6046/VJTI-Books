@@ -1,5 +1,6 @@
 import * as api from '../api/post'
 import {FETCH_ALL,CREATE,DELETE,FETCH_POST} from './actionConstants'
+import { getSavedPosts } from './userActions';
 
 export const getPosts = () => async(dispatch) => {
   try {

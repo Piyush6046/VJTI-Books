@@ -1,17 +1,23 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getPost } from "../../actions/postActions";
 import { useState } from "react";
 import "./PostDetails.css";
-import { Card, CircularProgress } from "@mui/material";
+import { Button, Card, CircularProgress, Paper } from "@mui/material";
+import { addConversation } from "../../api/post";
 
 const PostDetails = () => {
   const { post } = useSelector((state) => state.posts);
+  const user = JSON.parse(localStorage?.getItem('profile'));
+  const userId = user?.user?._id;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
   const [mainImage, setMainImage] = useState(post?.books_stack);
   const allImages = [post?.books_stack, post?.book1_img, post?.book2_img, post?.book3_img, post?.book4_img, post?.book5_img];
+  console.log(user);
+
   
   useEffect(() => {
     dispatch(getPost(id));
@@ -23,11 +29,15 @@ const PostDetails = () => {
 
   if(!post) {return  (<div style={{height:'100vh',width:'100%',margin:'30vh 70vh'}}><CircularProgress color='inherit' size='5em'/></div>);}
 
-  return (
+  const addConvo = async() => {
+    navigate('/chat');
+    await addConversation(userId,post?.creator);
+  }
 
-    <div>
-      <Card
-        sx={{ boxShadow: "0 0 0 2px #e0dede", maxWidth: 540, marginLeft: 10, marginBottom: 5, padding: 3, alignContent: "center" }}
+  return (
+    <div style={{display:'flex'}}>
+      <Card elevation={3}
+        sx={{ boxShadow: "0 0 0 2px #e0dede", maxWidth: 540, m:4,ml:8, padding: 3, alignContent: "center" }}
       // class="booksDisplayCard"
       >
         <img
@@ -49,7 +59,12 @@ const PostDetails = () => {
           ))}
         </div>
       </Card>
-    </div>
+      <Paper elevation={3} sx={{m:5,p:2}}>
+        <Button onClick={addConvo}>
+          Connect with seller
+        </Button>
+      </Paper>
+      </div>
   );
 };
 {/* <div>

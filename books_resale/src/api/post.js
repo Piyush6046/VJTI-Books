@@ -23,5 +23,10 @@ export const fetchMessages = (conversationId) => API.get(`/messages/${conversati
 
 export const sendMessage = (message) => API.post(`/messages`,message);
 
+export const addConversation = (senderId,receiverId) => API.post(`/conversations`,{senderId,receiverId});
+
+
 export const signUp = (authData) => API.post('/auth/signup',authData);
 export const logIn = (authData) => API.post('/auth/login',authData);
+export const savePost = (postId) => API.post(`/user/savepost/${postId}`);
+export const getSavedPosts = () => API.get('/user/getsavedposts');

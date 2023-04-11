@@ -1,10 +1,16 @@
 import ConversationModel from "../model/Conversation.js";
 
 export const createConversation = async (req, res) => {
+  console.log("hello");
   const newConversation = new ConversationModel({
     members: [req.body.senderId, req.body.receiverId],
   });
   try {
+    const conversation = await ConversationModel.findOne({members:[req.body.senderId,req.body.receiverId]});
+    if(conversation){
+      console.log("conversation already exist");
+      return res.status(400).json({message:'conversation already exist'});
+    }
     const savedConversation = await newConversation.save();
     res.status(200).json(savedConversation);
   } catch (error) {
