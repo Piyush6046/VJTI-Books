@@ -28,6 +28,7 @@ const postModel = new Schema({
   book5_img : String,
   fix_nego : String,
   creator : String,
+  whatsapp_number : String,
   // wishlist_count :{
   //   type : Number,
   //   default: 0,

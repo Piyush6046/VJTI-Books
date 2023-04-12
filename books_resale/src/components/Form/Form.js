@@ -6,13 +6,15 @@ import {createPost} from '../../actions/postActions'
 import { UseMediaQuery } from '@mui/material';
 import FileBase from 'react-file-base64';
 import './form.css'
+import { useNavigate } from 'react-router-dom';
 
 const Form = () => {
   const [postData,setPostData] = useState({college: "", year: "", branch:"", semester:"",original_price:"", resale_price: "", fix_nego: "", books_stack:"",
-                                            book1:"",book1_pub:"",book1_img:"",book2:"",book2_pub:"",book2_img:"",book3:"",book3_pub:"",book3_img:"",book4:"",book4_pub:"",book4_img:"",book5:"",book5_pub:"",book5_img:""});
+                                            book1:"",book1_pub:"",book1_img:"",book2:"",book2_pub:"",book2_img:"",book3:"",book3_pub:"",book3_img:"",book4:"",book4_pub:"",book4_img:"",book5:"",book5_pub:"",book5_img:"",
+                                            whatsapp_number:""});
 
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const user  = JSON.parse(localStorage.getItem('profile'));
 
   const isMobileScreen = useMediaQuery('(max-width:600px)');
@@ -21,11 +23,12 @@ const Form = () => {
     console.log(postData);
       e.preventDefault();
       dispatch(createPost(postData));// creating a post
+      navigate('/books')
       // clear();
   }
   const clear = () => {
     setPostData({college: "", year: "", branch:"", semester:"",original_price:"", resale_price: "", fix_nego: "", books_stack:"",
-    book1:"",book1_pub:"",book1_img:"",book2:"",book2_pub:"",book2_img:"",book3:"",book3_pub:"",book3_img:"",book4:"",book4_pub:"",book4_img:"",book5:"",book5_pub:"",book5_img:""})
+    book1:"",book1_pub:"",book1_img:"",book2:"",book2_pub:"",book2_img:"",book3:"",book3_pub:"",book3_img:"",book4:"",book4_pub:"",book4_img:"",book5:"",book5_pub:"",book5_img:"",whatsapp_number:""})
   }
 
   if(!user){
@@ -41,7 +44,7 @@ const Form = () => {
 
   return (
 
-    <Paper className='paper' style={{padding: '10px 50px',margin:'30px 10% 0 10%',borderRadius:'15px'}} elevation={4}>
+    <Paper className='paper' style={{padding: '10px 50px',margin:'30px 10% 2% 10%',borderRadius:'15px'}} elevation={4}>
       <form style={{marginTop:'12px'}} autoComplete="off" noValidate className='form' onSubmit={handleSubmit}>
         <Typography variant='h5' align='center' sx={{fontWeight:'bold'}}>Card Form</Typography>
 
@@ -128,8 +131,7 @@ const Form = () => {
             multiple={false}
             onDone = {({base64})=>{
               setPostData({...postData,books_stack:base64})
-            }}
-            style={{margin:'16px 0px'}}/>
+            }}/>
         </div>
 
           <Typography sx={{mt:2.40,mr:2,fontSize:18,ml:1}}>Books Information : </Typography>
@@ -225,6 +227,10 @@ const Form = () => {
             }}
             style={{margin:'16px 0px'}}/>
           </div>
+          <Typography sx={{ml:'0.5rem', mt:'2%'}}> Whatsapp Number : </Typography>
+          <TextField name="whatsapp_number" variant="outlined" label="whatsapp Number" fullWidth 
+            value={postData.whatsapp_number} onChange={(e) => setPostData({ ...postData, whatsapp_number : e.target.value })} 
+            sx={{width:1/4,mt:1}}/>
 
           {/* <Typography sx={{mt:2.40,mr:2,fontSize:18,ml:1}}>Additional Comments : </Typography>
             <TextField sx={{mt:2}} fullWidth
@@ -234,15 +240,16 @@ const Form = () => {
               rows={4}
             /> */}
 
-            <Button className='submitButton' variant="contained" color="primary" size="large" type="submit" fullWidth style={{margin:'10px 0 10px 0'}}>
+            <Button variant="outlined" size="large" type="submit" fullWidth style={{margin:'2% 0 1% 0',backgroundColor:"#f9ca3d",color:'black'}}>
               Submit
             </Button>
             <Button
-              variant="contained"
+              variant="outlined"
               color="secondary"
               size="small"
-              // onClick={clear}
+              onClick={clear}
               fullWidth
+              sx={{backgroundColor:'#ff9100',color:'black',mb:'0.5%'}}
             >
               Clear
             </Button>

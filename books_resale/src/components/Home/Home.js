@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { getPosts } from '../../actions/postActions';
 import Posts from '../Posts/Posts';
 import { getSavedPosts } from '../../api/post';
+import SavedPosts from '../Posts/SavedPosts';
+import SearchPosts from '../Posts/searchPosts/SearchPosts';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -13,16 +15,17 @@ const Home = () => {
     dispatch(getPosts());
   },[dispatch]);
   
-
   return (
-    <Container maxWidth='xl' >
-      <Container>
-        <Grid container>
-          <Grid item sm={0} justifyContent='end'>
+    <Container maxWidth='xl' sx={{marginBottom:'200px'}}>
+        <Grid container justifyContent='space-between' alignItems="stretch" spacing={3} >
+          <Grid item xs={2} sm={2} md={1}>
+            <SearchPosts/>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={10}>
             <Posts/>
           </Grid>
         </Grid>
-      </Container>
     </Container>
   );
 };

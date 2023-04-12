@@ -4,7 +4,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getPost } from "../../actions/postActions";
 import { useState } from "react";
 import "./PostDetails.css";
-import { Button, Card, CircularProgress, Paper } from "@mui/material";
+import { Button, Card, CircularProgress, Link, Paper, Typography } from "@mui/material";
 import { addConversation } from "../../api/post";
 
 const PostDetails = () => {
@@ -18,7 +18,7 @@ const PostDetails = () => {
   const allImages = [post?.books_stack, post?.book1_img, post?.book2_img, post?.book3_img, post?.book4_img, post?.book5_img];
   console.log(user);
 
-  
+  const hrefLink = `https://wa.me/${post?.whatsapp_number}`
   useEffect(() => {
     dispatch(getPost(id));
   }, [dispatch, id]);
@@ -30,14 +30,14 @@ const PostDetails = () => {
   if(!post) {return  (<div style={{height:'100vh',width:'100%',margin:'30vh 70vh'}}><CircularProgress color='inherit' size='5em'/></div>);}
 
   const addConvo = async() => {
-    navigate('/chat');
     await addConversation(userId,post?.creator);
+    navigate('/chat');
   }
 
   return (
     <div style={{display:'flex'}}>
       <Card elevation={3}
-        sx={{ boxShadow: "0 0 0 2px #e0dede", maxWidth: 540, m:4,ml:8, padding: 3, alignContent: "center" }}
+        sx={{backgroundColor:'inherit', maxWidth: 540, m:4,ml:8, padding: 1.5, alignContent: "center" }}
       // class="booksDisplayCard"
       >
         <img
@@ -46,7 +46,7 @@ const PostDetails = () => {
           className="main-image"
           sx={{ maxWidth: 500, Height: 500, padding: 3, margin: 0 }}
         />
-        <div>
+        <div style={{display:'flex'}}>
           {allImages.map((image, index) => (
             <img
               key={index}
@@ -59,10 +59,44 @@ const PostDetails = () => {
           ))}
         </div>
       </Card>
-      <Paper elevation={3} sx={{m:5,p:2}}>
-        <Button onClick={addConvo}>
-          Connect with seller
-        </Button>
+
+      <Paper elevation={3} sx={{backgroundColor:"inherit", m:5,p:5,width:'50%'}}>
+      <Typography
+          gutterBottom
+          variant="h3"
+          component="div"
+          sx={{ fontFamily: "Merriweather", fontWeight: "bold" }}
+        >
+          {post.year +
+            " " +
+            post.branch +
+            " " +
+            post.semester.toUpperCase() +
+            " SEM "}
+        </Typography>
+        <Typography variant="h5">
+          Subjects Available :
+          <ol style={{padding:'1rem 0 0 3rem'}}>
+            <li onClick={()=>setMainImage(post?.book1_img)}> {post?.book1} - {post?.book1_pub} </li>
+            <li onClick={()=>setMainImage(post?.book2_img)}> {post?.book2} - {post?.book1_pub} </li>
+            <li onClick={()=>setMainImage(post?.book3_img)}> {post?.book3} - {post?.book1_pub} </li>
+            <li onClick={()=>setMainImage(post?.book4_img)}> {post?.book4} - {post?.book1_pub} </li>
+            <li onClick={()=>setMainImage(post?.book5_img)}> {post?.book5} - {post?.book1_pub} </li>
+          </ol>
+        </Typography>
+        <Typography variant="h5" sx={{mt:2,display:'flex',flexDirection:'column',gap:1}}>
+            <p>Original Price: <span>&#8377;</span> {post?.original_price}</p>
+            <p>Resale Price :  <span>&#8377;</span>  {post?.resale_price}</p>
+            <p>Price : {post?.fix_nego}</p>
+        </Typography>
+        <div className="page_details_buttons">
+          <Button variant="outlined" onClick={addConvo} sx={{marginTop:'20px', marginRight:'2rem', backgroundColor:"#f9ca3d;",color:'black'}}>
+            Chat with seller
+          </Button>
+          <Button target="blank" href={hrefLink} variant="outlined" sx={{marginTop:'10px', backgroundColor:"#f9ca3d;",color:'black'}}>
+            Connect on Whatsapp
+          </Button>
+        </div>
       </Paper>
       </div>
   );

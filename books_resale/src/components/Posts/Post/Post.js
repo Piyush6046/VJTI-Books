@@ -5,7 +5,10 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Fade,
   IconButton,
+  Menu,
+  MenuItem,
   Paper,
   Typography,
 } from "@mui/material";
@@ -13,6 +16,8 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Bookmark from "@mui/icons-material/Bookmark";
 import Divider from "@mui/material/Divider";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import EditIcon from '@mui/icons-material/Edit';
 import "./Post.css";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost } from "../../../actions/postActions";
@@ -25,6 +30,9 @@ const Post = ({ post}) => {
   const dispatch = useDispatch();
   const openPost = () => navigate(`/books/${post._id}`);
   const user = JSON.parse(localStorage?.getItem('profile'));
+  const flag = user?.user?._id === post?.creator;
+  console.log("user : ",user?.user?._id);
+  console.log("creator : ",post?.creator);
 
   const handleSave = () => {
     setIsSaved(!isSaved);
@@ -38,6 +46,15 @@ const Post = ({ post}) => {
   //     <BookmarkBorderIcon sx={{ fontSize: '35px' }} />
   //   )
   // }
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   
   return (
     <Card elevation={4}
@@ -50,6 +67,7 @@ const Post = ({ post}) => {
         ':hover': {
           boxShadow: 12, // theme.shadows[20]
         },
+        position:'relative'
       }}
     >
       <CardMedia
@@ -60,6 +78,33 @@ const Post = ({ post}) => {
         image={post.books_stack}
         sx={{ borderRadius: 5 }}
       />
+      {/* ******************* */}
+
+      {flag &&
+      <div className="overlay2">
+            <Button
+              id="fade-button"
+              onClick={handleClick}
+            >
+              <MoreHorizIcon className="overlay"/>
+            </Button>
+            
+            <Menu 
+              id="fade-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              TransitionComponent={Fade}
+            >
+              <MenuItem onClick={handleClose}><EditIcon sx={{mr:1.7}}/> Edit</MenuItem>
+              <Divider variant="middle" sx={{color:"black",borderBottomWidth:'2px'}}/>
+              <MenuItem onClick={() => { dispatch(deletePost(post._id)) ; handleClose()}}><DeleteIcon sx={{mr:1}}/>Delete</MenuItem>
+            </Menu>
+          </div>
+          }
+          
+          {/* *************** */}
+
       <CardContent>
         <div style={{display:'flex',justifyContent:'space-between'}}>
         <Typography
@@ -127,6 +172,7 @@ const Post = ({ post}) => {
             <DeleteIcon fontSize="small" /> Delete
           </Button> */}
 
+          
         </Typography>
       </CardContent>
     </Card>

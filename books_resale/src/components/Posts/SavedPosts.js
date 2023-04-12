@@ -1,4 +1,4 @@
-import { CircularProgress, Grid } from '@mui/material';
+import { CircularProgress, Grid, Paper, Typography } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Post from './Post/Post';
@@ -8,6 +8,7 @@ const SavedPosts = () => {
   const { savedposts } = useSelector((state)=>state.posts);
   console.log("savedposts are : ",savedposts);
   if(!savedposts?.length) {return  (<div style={{height:'100vh',width:'100%',margin:'30vh 70vh'}}><CircularProgress color='inherit' size='5em'/></div>);}
+
   return (
     <div className='PostsPage'>
       <Grid container spacing={3} marginTop='10px'>
