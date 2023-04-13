@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Button, FormControl, FormControlLabel, InputLabel, MenuItem, Paper, Radio, RadioGroup, Select, TextField, Typography, useMediaQuery} from '@mui/material'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 // import {useNavigate} from 'react-router-dom'
-import {createPost} from '../../actions/postActions'
+import {createPost, getPosts, updatePost} from '../../actions/postActions'
 import { UseMediaQuery } from '@mui/material';
 import FileBase from 'react-file-base64';
 import './form.css'
 import { useNavigate } from 'react-router-dom';
 
-const Form = () => {
+const Form = ({currentId,setCurrentId}) => {
   const [postData,setPostData] = useState({college: "", year: "", branch:"", semester:"",original_price:"", resale_price: "", fix_nego: "", books_stack:"",
                                             book1:"",book1_pub:"",book1_img:"",book2:"",book2_pub:"",book2_img:"",book3:"",book3_pub:"",book3_img:"",book4:"",book4_pub:"",book4_img:"",book5:"",book5_pub:"",book5_img:"",
                                             whatsapp_number:""});
@@ -17,19 +17,31 @@ const Form = () => {
   const navigate = useNavigate();
   const user  = JSON.parse(localStorage.getItem('profile'));
 
+  const post = useSelector((state) => currentId ?  state?.posts?.find((p)=>p._id === currentId) : null)
+
   const isMobileScreen = useMediaQuery('(max-width:600px)');
   
   const handleSubmit = (e) => {
-    console.log(postData);
       e.preventDefault();
-      dispatch(createPost(postData));// creating a post
-      navigate('/books')
-      // clear();
+      if(currentId===0){
+        dispatch(createPost(postData,navigate));
+        clear();
+      }else{
+        dispatch(updatePost(currentId,postData,navigate));
+        dispatch(getPosts());
+        clear();
+      }
+      
   }
   const clear = () => {
+    setCurrentId(0);
     setPostData({college: "", year: "", branch:"", semester:"",original_price:"", resale_price: "", fix_nego: "", books_stack:"",
     book1:"",book1_pub:"",book1_img:"",book2:"",book2_pub:"",book2_img:"",book3:"",book3_pub:"",book3_img:"",book4:"",book4_pub:"",book4_img:"",book5:"",book5_pub:"",book5_img:"",whatsapp_number:""})
   }
+
+  useEffect(()=>{
+    if(post) {setPostData(post);}
+  },[post])
 
   if(!user){
     return(

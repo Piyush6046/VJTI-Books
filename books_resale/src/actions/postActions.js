@@ -1,5 +1,5 @@
 import * as api from '../api/post'
-import {FETCH_ALL,CREATE,DELETE,FETCH_POST} from './actionConstants'
+import {FETCH_ALL,CREATE,DELETE,FETCH_POST,UPDATE} from './actionConstants'
 import { getSavedPosts } from './userActions';
 
 export const getPosts = () => async(dispatch) => {
@@ -26,9 +26,21 @@ export const getPost = (id) => async (dispatch) => {
   }
 }
 
-export const createPost = (post) => async(dispatch) => {
+export const updatePost = (id,post,navigate) => async(dispatch) => {
+  try {
+    const  { data } = await api.updatePost(id,post);
+    navigate(`/posts/${data._id}`)//returning to post_details page of post created
+    dispatch({ type:UPDATE , payload:data})
+    dispatch(getPosts());
+  }catch(error){
+    console.log(error);
+  }
+}
+
+export const createPost = (post,navigate) => async(dispatch) => {
   try {
     const {data} = await api.createPost(post);
+    navigate(`/posts/${data._id}`);
     dispatch({type : CREATE , payload:data});
   }catch(error){
     console.log(error);

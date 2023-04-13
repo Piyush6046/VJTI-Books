@@ -8,7 +8,7 @@ import { getSavedPosts } from '../../api/post';
 import SavedPosts from '../Posts/SavedPosts';
 import SearchPosts from '../Posts/searchPosts/SearchPosts';
 
-const Home = () => {
+const Home = ({setCurrentId}) => {
   const dispatch = useDispatch();
 
   useEffect(()=>{
@@ -23,7 +23,7 @@ const Home = () => {
           </Grid>
 
           <Grid item xs={12} sm={6} md={10}>
-            <Posts/>
+            <Posts setCurrentId={setCurrentId}/>
           </Grid>
         </Grid>
     </Container>

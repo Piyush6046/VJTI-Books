@@ -1,5 +1,5 @@
 // import React from 'react';
-import {FETCH_ALL,CREATE,FETCH_POST, SAVED_POSTS} from '../actions/actionConstants'
+import {FETCH_ALL,CREATE,FETCH_POST, SAVED_POSTS,UPDATE} from '../actions/actionConstants'
 
 const postReducer = ( posts = [], action ) => {
   switch (action.type) {
@@ -12,6 +12,8 @@ const postReducer = ( posts = [], action ) => {
     case SAVED_POSTS:
       console.log("mamam : ",action.payload);
       return { ...posts, savedposts : action.payload};
+    case UPDATE :
+      return {...posts , posts :  posts.map((post) => (post._id === action.payload.id ? action.payload : post))}
     default:
       return posts;
   }

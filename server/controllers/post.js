@@ -23,6 +23,7 @@ export const getPost = async(req,res) => {
 export const createPost = async(req,res) => {
     const post = req.body;
     const newPost = new PostModel({...post,creator:req.userId});
+    console.log("creating a new post");
     // const newPost = new PostModel(post);
     try{
       await newPost.save();
@@ -32,14 +33,14 @@ export const createPost = async(req,res) => {
 }
 
 export const updatePost = async(req,res) => {
-  const postId = req.params.id;
-  const {userId} = req.body;
-  try {
-    const post = await PostModel.findById(postId);
-    //remaining code
-  } catch (error) {
-    console.log(error);
-  }
+  const {id} = req.params;
+  const post = req.body //we are receiving the whole updated post via the request body
+  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+  
+  const updatedPost = await PostModel.findByIdAndUpdate(id,{...post,creator:req.userId,id},{new:true});
+  console.log("hello");
+  res.json(updatedPost);
+  console.log(updatedPost);
 }
 
 export const deletePost = async(req,res) => {

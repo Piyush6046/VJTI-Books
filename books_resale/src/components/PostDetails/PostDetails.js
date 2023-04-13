@@ -93,7 +93,7 @@ const PostDetails = () => {
           <Button variant="outlined" onClick={addConvo} sx={{marginTop:'20px', marginRight:'2rem', backgroundColor:"#f9ca3d;",color:'black'}}>
             Chat with seller
           </Button>
-          <Button target="blank" href={hrefLink} variant="outlined" sx={{marginTop:'10px', backgroundColor:"#f9ca3d;",color:'black'}}>
+          <Button target="blank" href={hrefLink} variant="outlined" sx={{marginTop:'20px', backgroundColor:"#f9ca3d;",color:'black'}}>
             Connect on Whatsapp
           </Button>
         </div>

@@ -30,8 +30,9 @@ const Navbar = () => {
   },[location])
 
   return (
-    <div>
-    <AppBar elevation={0} position="static" color='inherit' sx={{my:2,mb:0, borderRadius:2 ,p:1}} style={{display:'flex',flexDirection:'row',justifyContent:'space-between',backgroundColor:'rgba(1,1,0,0.0)'}}>
+    <>
+    <div style={{position:'fixed',zIndex:'2',width:'92rem'}}>
+    <AppBar elevation={0} position="static" color='inherit' sx={{borderRadius:2 ,p:1}} style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
 
     <div>
       <Link to='/' style={{display:'flex',alignItems:'center',textDecoration:'none',color:'black'}}>
@@ -54,6 +55,8 @@ const Navbar = () => {
     </AppBar>
     <Divider variant='middle' sx={{color:'black',borderBottomWidth:'2px'}}/>
     </div>
+    <div style={{height:'130px',width:'100px'}}> </div>
+    </>
   );
 };
 

@@ -14,6 +14,7 @@ export const getposts = () => API.get('/posts');
 export const createPost = (post)=> API.post('/posts',post);
 export const deletePost = (id) => API.delete(`/posts/${id}`);
 export const fetchPost = (id) => API.get(`/posts/${id}`)
+export const updatePost = (id,updatedPost) => API.patch(`/posts/${id}`,updatedPost);
 
 export const fetchConversations = (userId) => API.get(`/conversations/${userId}`);
 

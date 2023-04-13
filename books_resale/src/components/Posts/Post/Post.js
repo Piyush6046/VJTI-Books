@@ -24,7 +24,7 @@ import { deletePost } from "../../../actions/postActions";
 import { useNavigate } from "react-router-dom";
 import { getSavedPosts, savePost } from "../../../actions/userActions";
 
-const Post = ({ post}) => {
+const Post = ({ post , setCurrentId}) => {
   const [isSaved, setIsSaved] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -96,7 +96,7 @@ const Post = ({ post}) => {
               onClose={handleClose}
               TransitionComponent={Fade}
             >
-              <MenuItem onClick={handleClose}><EditIcon sx={{mr:1.7}}/> Edit</MenuItem>
+              <MenuItem onClick={()=>{setCurrentId(post?._id);handleClose()}}><EditIcon sx={{mr:1.7}}/> Edit</MenuItem>
               <Divider variant="middle" sx={{color:"black",borderBottomWidth:'2px'}}/>
               <MenuItem onClick={() => { dispatch(deletePost(post._id)) ; handleClose()}}><DeleteIcon sx={{mr:1}}/>Delete</MenuItem>
             </Menu>
