@@ -130,10 +130,16 @@ const Messenger = () => {
       </div>
 
       <div className="chatBox">
+        {/* this div is for top bar of messenger like ehatsapp showing recivers name */}
+      {/* <div style={{position:'fixed', width:'60%',zIndex:'3',color:'inherit', backgroundColor: 'rgb(234, 229, 229)',borderRadius:'20px'}}>
+                  <Conversation key={userId} conversation={currentChat} currentUserId={userId} onlineUsers={onlineUsers}></Conversation>
+                </div>
+                <div className='backDiv' style={{height:'80px'}}></div> */}
         <div className="chatBoxWrapper">
           <div className="chatBoxTop">
             {currentChat ? (
               <>
+
                 {messages?.map((message) => (
                   <div ref={scrollRef}>
                     <Message key={message._id} own={message?.sender === userId} message={message} />

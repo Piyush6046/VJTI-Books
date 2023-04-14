@@ -26,7 +26,8 @@ export const createPost = async(req,res) => {
     console.log("creating a new post");
     // const newPost = new PostModel(post);
     try{
-      await newPost.save();
+      const newpost = await newPost.save();
+      res.json(newpost);
     }catch(error){
       res.status(409).json(error);
   }
@@ -51,4 +52,14 @@ export const deletePost = async(req,res) => {
     await PostModel.findByIdAndRemove(id); //removind the post with a given id
   
     res.json({ message: "Post deleted successfully." });
+}
+
+export const getPostsBySearch = async(req,res) => {
+  const {year,branch,semester} = req.query;
+  try {
+    const posts = await PostModel.find({year:year,branch:branch,semester:semester});
+    res.json(posts);
+  } catch (error) {
+    res.status(404).json({message:error})
+  }
 }

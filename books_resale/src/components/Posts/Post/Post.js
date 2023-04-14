@@ -22,7 +22,7 @@ import "./Post.css";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost } from "../../../actions/postActions";
 import { useNavigate } from "react-router-dom";
-import { getSavedPosts, savePost } from "../../../actions/userActions";
+import { getSavedPosts, getUser, savePost } from "../../../actions/userActions";
 
 const Post = ({ post , setCurrentId}) => {
   const [isSaved, setIsSaved] = useState(false);
@@ -30,22 +30,31 @@ const Post = ({ post , setCurrentId}) => {
   const dispatch = useDispatch();
   const openPost = () => navigate(`/books/${post._id}`);
   const user = JSON.parse(localStorage?.getItem('profile'));
+  const [userInfo,setUserInfo] = useState({});
   const flag = user?.user?._id === post?.creator;
-  console.log("user : ",user?.user?._id);
-  console.log("creator : ",post?.creator);
+
+  useEffect(()=>{
+    const getUserInfo = async() => {
+      const userInfo = await dispatch(getUser(user?.user?._id));
+      setUserInfo(userInfo);
+      setIsSaved(userInfo?.savedbooks?.some((savedpost)=>post._id===savedpost));
+      console.log("userInfo : ",userInfo);
+    }
+    getUserInfo();
+  },[isSaved]);
 
   const handleSave = () => {
     setIsSaved(!isSaved);
     const savedPosts = dispatch(savePost(post._id));
   }
 
-  // const SaveIcon = () => {
-  //   return savedposts?.some((savedpost)=>post._id===savedpost._id) ? (
-  //     <Bookmark sx={{ fontSize: '35px' }} />
-  //   ) : (
-  //     <BookmarkBorderIcon sx={{ fontSize: '35px' }} />
-  //   )
-  // }
+  const SaveIcon = () => {
+    return userInfo?.savedbooks?.some((savedpost)=>post._id===savedpost) ? (
+      <Bookmark sx={{ fontSize: '35px' }} />
+    ) : (
+      <BookmarkBorderIcon sx={{ fontSize: '35px' }} />
+    )
+  }
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -55,11 +64,18 @@ const Post = ({ post , setCurrentId}) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleEdit = () => {
+    setCurrentId(post?._id);
+    navigate('/form');
+    handleClose()
+  }
   
   return (
     <Card elevation={4}
       sx={{
         maxWidth: 345,
+        minWidth:340,
         padding: 3,
         // backgroundColor: "#FFE996",
         backgroundColor:'#fcda71',
@@ -96,7 +112,7 @@ const Post = ({ post , setCurrentId}) => {
               onClose={handleClose}
               TransitionComponent={Fade}
             >
-              <MenuItem onClick={()=>{setCurrentId(post?._id);handleClose()}}><EditIcon sx={{mr:1.7}}/> Edit</MenuItem>
+              <MenuItem onClick={handleEdit}><EditIcon sx={{mr:1.7}}/> Edit</MenuItem>
               <Divider variant="middle" sx={{color:"black",borderBottomWidth:'2px'}}/>
               <MenuItem onClick={() => { dispatch(deletePost(post._id)) ; handleClose()}}><DeleteIcon sx={{mr:1}}/>Delete</MenuItem>
             </Menu>
@@ -124,13 +140,7 @@ const Post = ({ post , setCurrentId}) => {
           onClick={handleSave}
           sx={{ pt:0 }}
           disabled={!user}>
-            {
-              isSaved ? (
-                <Bookmark sx={{ fontSize: '35px' }} />
-                ) : (
-                  <BookmarkBorderIcon sx={{ fontSize: '35px' }} />
-                )
-            }
+            <SaveIcon/>
       </IconButton>
       </div>
         <Typography

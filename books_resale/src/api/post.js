@@ -21,6 +21,7 @@ export const fetchConversations = (userId) => API.get(`/conversations/${userId}`
 export const getUser = (userId) => API.get(`/user/${userId}`);
 
 export const fetchMessages = (conversationId) => API.get(`/messages/${conversationId}`);
+export const fetchPostsBySearch = (searchQuery) => API.get(`/posts/search?year=${searchQuery.year}&branch=${searchQuery.branch}&semester=${searchQuery.semester}`)
 
 export const sendMessage = (message) => API.post(`/messages`,message);
 

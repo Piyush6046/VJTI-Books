@@ -9,6 +9,7 @@ const postModel = new Schema({
   semester : String,
   original_price:String,
   resale_price:String,
+  seller_name:String,
   // contact_number : String,
   books_stack:String,
   book1 : String,

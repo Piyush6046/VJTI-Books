@@ -16,9 +16,10 @@ const PostDetails = () => {
   const { id } = useParams();
   const [mainImage, setMainImage] = useState(post?.books_stack);
   const allImages = [post?.books_stack, post?.book1_img, post?.book2_img, post?.book3_img, post?.book4_img, post?.book5_img];
-  console.log(user);
+  const allNonNullImages = allImages?.filter((image)=>image!=="");
 
   const hrefLink = `https://wa.me/${post?.whatsapp_number}`
+
   useEffect(() => {
     dispatch(getPost(id));
   }, [dispatch, id]);
@@ -46,8 +47,8 @@ const PostDetails = () => {
           className="main-image"
           sx={{ maxWidth: 500, Height: 500, padding: 3, margin: 0 }}
         />
-        <div style={{display:'flex'}}>
-          {allImages.map((image, index) => (
+        <div style={{display:'flex',justifyContent:'center'}}>
+          {allNonNullImages.map((image, index) => (
             <img
               key={index}
               src={image}
@@ -67,36 +68,34 @@ const PostDetails = () => {
           component="div"
           sx={{ fontFamily: "Merriweather", fontWeight: "bold" }}
         >
-          {post.year +
-            " " +
-            post.branch +
-            " " +
-            post.semester.toUpperCase() +
-            " SEM "}
+          {post.year + " " + post.branch + " " + post.semester.toUpperCase() + " SEM "}
         </Typography>
         <Typography variant="h5">
           Subjects Available :
           <ol style={{padding:'1rem 0 0 3rem'}}>
-            <li onClick={()=>setMainImage(post?.book1_img)}> {post?.book1} - {post?.book1_pub} </li>
-            <li onClick={()=>setMainImage(post?.book2_img)}> {post?.book2} - {post?.book1_pub} </li>
-            <li onClick={()=>setMainImage(post?.book3_img)}> {post?.book3} - {post?.book1_pub} </li>
-            <li onClick={()=>setMainImage(post?.book4_img)}> {post?.book4} - {post?.book1_pub} </li>
-            <li onClick={()=>setMainImage(post?.book5_img)}> {post?.book5} - {post?.book1_pub} </li>
+            
+              {[1, 2, 3, 4, 5].map(bookNumber => (
+                post[`book${bookNumber}`] || post[`book${bookNumber}_pub`] ? (
+                <li key={bookNumber} onClick={() => setMainImage(post[`book${bookNumber}_img`])}>
+                  {post[`book${bookNumber}`]} - {post[`book${bookNumber}_pub`]}
+                </li>
+                ) : null
+              ))}
           </ol>
         </Typography>
         <Typography variant="h5" sx={{mt:2,display:'flex',flexDirection:'column',gap:1}}>
             <p>Original Price: <span>&#8377;</span> {post?.original_price}</p>
-            <p>Resale Price :  <span>&#8377;</span>  {post?.resale_price}</p>
-            <p>Price : {post?.fix_nego}</p>
+            <p>Resale Price :  <span>&#8377;</span>  {post?.resale_price} ({post?.fix_nego})</p>
+            <p>Seller name : {post?.seller_name}</p>
         </Typography>
-        <div className="page_details_buttons">
-          <Button variant="outlined" onClick={addConvo} sx={{marginTop:'20px', marginRight:'2rem', backgroundColor:"#f9ca3d;",color:'black'}}>
-            Chat with seller
-          </Button>
-          <Button target="blank" href={hrefLink} variant="outlined" sx={{marginTop:'20px', backgroundColor:"#f9ca3d;",color:'black'}}>
-            Connect on Whatsapp
-          </Button>
-        </div>
+          <div className="page_details_buttons">
+            <Button variant="outlined" onClick={addConvo} disabled={!user?.token} sx={{marginTop:'20px', marginRight:'2rem', backgroundColor: !user?.token ?  '#f2f2f2' : '#f9ca3d',color:'black'}}>
+              Chat with seller
+            </Button>
+            <Button target="blank" href={hrefLink} variant="outlined" disabled={!user?.token} sx={{marginTop:'20px', backgroundColor: !user?.token ?  '#f2f2f2' : '#f9ca3d',color:'black'}}>
+              Connect on Whatsapp
+            </Button>
+          </div>
       </Paper>
       </div>
   );

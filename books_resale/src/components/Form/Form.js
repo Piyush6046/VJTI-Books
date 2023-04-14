@@ -7,15 +7,18 @@ import { UseMediaQuery } from '@mui/material';
 import FileBase from 'react-file-base64';
 import './form.css'
 import { useNavigate } from 'react-router-dom';
+import BookComponent from './BookComponent';
 
 const Form = ({currentId,setCurrentId}) => {
+  
+  const user  = JSON.parse(localStorage.getItem('profile'));
+  const seller_name = `${user?.user?.firstname} ${user?.user?.lastname}`;
   const [postData,setPostData] = useState({college: "", year: "", branch:"", semester:"",original_price:"", resale_price: "", fix_nego: "", books_stack:"",
                                             book1:"",book1_pub:"",book1_img:"",book2:"",book2_pub:"",book2_img:"",book3:"",book3_pub:"",book3_img:"",book4:"",book4_pub:"",book4_img:"",book5:"",book5_pub:"",book5_img:"",
-                                            whatsapp_number:""});
+                                            whatsapp_number:"",seller_name:`${seller_name}`});
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user  = JSON.parse(localStorage.getItem('profile'));
 
   const post = useSelector((state) => currentId ?  state?.posts?.find((p)=>p._id === currentId) : null)
 
@@ -39,6 +42,18 @@ const Form = ({currentId,setCurrentId}) => {
     book1:"",book1_pub:"",book1_img:"",book2:"",book2_pub:"",book2_img:"",book3:"",book3_pub:"",book3_img:"",book4:"",book4_pub:"",book4_img:"",book5:"",book5_pub:"",book5_img:"",whatsapp_number:""})
   }
 
+  const handleTextChange = (e, bookName) => {
+    setPostData({ ...postData, [bookName]: e.target.value });
+  };
+
+  const handlePubChange = (e, bookName) => {
+    setPostData({ ...postData, [`${bookName}_pub`]: e.target.value });
+  };
+
+  const handleImgDone = ({ base64 }, bookName) => {
+    setPostData({ ...postData, [`${bookName}_img`]: base64 });
+  };
+
   useEffect(()=>{
     if(post) {setPostData(post);}
   },[post])
@@ -58,7 +73,7 @@ const Form = ({currentId,setCurrentId}) => {
 
     <Paper className='paper' style={{padding: '10px 50px',margin:'30px 10% 2% 10%',borderRadius:'15px'}} elevation={4}>
       <form style={{marginTop:'12px'}} autoComplete="off" noValidate className='form' onSubmit={handleSubmit}>
-        <Typography variant='h5' align='center' sx={{fontWeight:'bold'}}>Card Form</Typography>
+        <Typography variant='h5' align='center' sx={{fontWeight:'bold'}}>{!currentId ? `Create Book Post` : `Editing Book Post`}</Typography>
 
         <FormControl fullWidth sx={{mb:2,mt:2}}>
           <InputLabel id="college-name">College name</InputLabel>
@@ -152,116 +167,32 @@ const Form = ({currentId,setCurrentId}) => {
             <Typography sx={{mt:2.40,mr:2,fontSize:18,ml:1}}>Publication</Typography>
             <Typography sx={{mt:2.40,fontSize:18}}>Picture of Book</Typography>
           </div>
-
-          {/* Books Input */}
-          <div style={{display:'flex',justifyContent:'space-between'}}>
-
-            <TextField name="book1" variant="outlined" label="Book 1" fullWidth 
-            value={postData.book1} onChange={(e) => setPostData({ ...postData, book1 : e.target.value })} 
-            sx={{width:1/4,mt:1}}/>
-
-            <TextField name="book1_pub" variant="outlined" label="Book 1" fullWidth 
-            value={postData.book1_pub} onChange={(e) => setPostData({ ...postData, book1_pub : e.target.value })} 
-            sx={{width:1/4,mt:1}}/>
-
-            <FileBase
-            type='file'
-            multiple={false}
-            onDone = {({base64})=>{
-              setPostData({...postData,book1_img:base64})
-            }}
-            style={{margin:'16px 0px'}}/>
-            
+          <div>
+          {[1, 2, 3, 4, 5].map((bookNum) => (
+            <BookComponent
+              key={bookNum}
+              label={`Book ${bookNum}`}
+              name={`book${bookNum}`}
+              value={postData[`book${bookNum}`]}
+              pubValue={postData[`book${bookNum}_pub`]}
+              imgValue={postData[`book${bookNum}_img`]}
+              onTextChange={(e) => handleTextChange(e, `book${bookNum}`)}
+              onPubChange={(e) => handlePubChange(e, `book${bookNum}`)}
+              onImgDone={(base64) => handleImgDone(base64, `book${bookNum}`)}
+            />
+            ))}
           </div>
 
-          <div style={{display:'flex',justifyContent:'space-between'}}>
-            <TextField name="book2" variant="outlined" label="Book 2" fullWidth 
-            value={postData.book2} onChange={(e) => setPostData({ ...postData, book2 : e.target.value })} 
-            sx={{width:1/4,mt:1}}/>
-            <TextField name="book2" variant="outlined" label="Book 2" fullWidth 
-            value={postData.book2_pub} onChange={(e) => setPostData({ ...postData, book2_pub : e.target.value })} 
-            sx={{width:1/4,mt:1}}/>
-
-            <FileBase
-            type='file'
-            multiple={false}
-            onDone = {({base64})=>{
-              setPostData({...postData,book2_img:base64})
-            }}
-            style={{margin:'16px 0px'}}/>
-
-          </div>
-
-          <div style={{display:'flex',justifyContent:'space-between'}}>
-            <TextField name="book3" variant="outlined" label="Book 3" fullWidth 
-            value={postData.book3} onChange={(e) => setPostData({ ...postData, book3 : e.target.value })} 
-            sx={{width:1/4,mt:1}}/>
-            <TextField name="book3" variant="outlined" label="Book 3" fullWidth 
-            value={postData.book3_pub} onChange={(e) => setPostData({ ...postData, book3_pub : e.target.value })} 
-            sx={{width:1/4,mt:1}}/>
-            <FileBase
-            type='file'
-            multiple={false}
-            onDone = {({base64})=>{
-              setPostData({...postData,book3_img:base64})
-            }}
-            style={{margin:'16px 0px'}}/>
-          </div>
-
-          <div style={{display:'flex',justifyContent:'space-between'}}>
-            <TextField name="book4" variant="outlined" label="Book 4" fullWidth 
-            value={postData.book4} onChange={(e) => setPostData({ ...postData, book4 : e.target.value })} 
-            sx={{width:1/4,mt:1}}/>
-            <TextField name="book4" variant="outlined" label="Book 4" fullWidth 
-            value={postData.book4_pub} onChange={(e) => setPostData({ ...postData, book4_pub : e.target.value })} 
-            sx={{width:1/4,mt:1}}/>
-            <FileBase
-            type='file'
-            multiple={false}
-            onDone = {({base64})=>{
-              setPostData({...postData,book4_img:base64})
-            }}
-            style={{margin:'16px 0px'}}/>
-          </div>
-
-          <div style={{display:'flex',justifyContent:'space-between'}}>
-            <TextField name="book5" variant="outlined" label="Book 5" fullWidth 
-            value={postData.book5} onChange={(e) => setPostData({ ...postData, book5 : e.target.value })} 
-            sx={{width:1/4,mt:1}}/>
-            <TextField name="book5" variant="outlined" label="Book 5" fullWidth 
-            value={postData.book5_pub} onChange={(e) => setPostData({ ...postData, book5_pub : e.target.value })} 
-            sx={{width:1/4,mt:1}}/>
-            <FileBase
-            type='file'
-            multiple={false}
-            onDone = {({base64})=>{
-              setPostData({...postData,book5_img:base64})
-            }}
-            style={{margin:'16px 0px'}}/>
-          </div>
-          <Typography sx={{ml:'0.5rem', mt:'2%'}}> Whatsapp Number : </Typography>
-          <TextField name="whatsapp_number" variant="outlined" label="whatsapp Number" fullWidth 
-            value={postData.whatsapp_number} onChange={(e) => setPostData({ ...postData, whatsapp_number : e.target.value })} 
-            sx={{width:1/4,mt:1}}/>
-
-          {/* <Typography sx={{mt:2.40,mr:2,fontSize:18,ml:1}}>Additional Comments : </Typography>
-            <TextField sx={{mt:2}} fullWidth
-              id="outlined-multiline-static"
-              label="Additional Comments"
-              multiline
-              rows={4}
-            /> */}
-
-            <Button variant="outlined" size="large" type="submit" fullWidth style={{margin:'2% 0 1% 0',backgroundColor:"#f9ca3d",color:'black'}}>
+            <Button variant="outlined" size="large" type="submit" fullWidth sx={{m:'2% 0 1% 0',backgroundColor:"#f9ca3d",color:'black'}}>
               Submit
             </Button>
+
             <Button
               variant="outlined"
-              color="secondary"
               size="small"
               onClick={clear}
               fullWidth
-              sx={{backgroundColor:'#ff9100',color:'black',mb:'0.5%'}}
+              sx={{backgroundColor:'#f0c763',color:'black',mb:'0.5%'}}
             >
               Clear
             </Button>

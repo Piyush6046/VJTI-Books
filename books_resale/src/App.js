@@ -10,10 +10,14 @@ import PostDetails from './components/PostDetails/PostDetails';
 import { useEffect, useState } from 'react';
 import Messenger from './components/chat/Messenger';
 import Home2 from './components/Home/Home2';
+import NoMatch from './components/NoMatch/NoMatch';
+import { getUser } from './actions/userActions';
+import { useDispatch } from 'react-redux';
 
 function App() {
   const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const [currentId,setCurrentId] = useState(0);
+  const dispatch = useDispatch();
 
   useEffect(()=>{
       setUser(JSON.parse(localStorage.getItem('profile')));
@@ -26,11 +30,13 @@ function App() {
         <Routes>
           <Route path='/' element={<LandingPage/>}></Route>
           <Route path='/books' index element={<Home setCurrentId={setCurrentId}/>}></Route>
+          <Route path='/books/search' index element={<Home setCurrentId={setCurrentId}/>}></Route>
           <Route path='/books/:id' element={<PostDetails/>}></Route>
           <Route path='/form' element={<Form currentId={currentId} setCurrentId={setCurrentId}/>}></Route>
           <Route path='/auth' element={<Auth/>}></Route>
           <Route path='/chat' element={<Messenger/>}/>
           <Route path='/savedBooks' element={<Home2/>}></Route>
+          <Route path='*' element = {<NoMatch/>} ></Route>
         </Routes>
       </Container>
     </BrowserRouter>

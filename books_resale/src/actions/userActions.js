@@ -1,5 +1,5 @@
 import * as api from '../api/post'
-import { SAVED_POSTS } from './actionConstants';
+import { SAVED_POSTS ,SAVE_USER} from './actionConstants';
 // import {FETCH_USER} from './actionConstants'
 
 
@@ -7,6 +7,7 @@ export const getUser = (id) => async(dispatch) => {
   try {
     console.log(id);
     const {data}  = await api.getUser(id);
+    dispatch({type:SAVE_USER,payload:data});
     return data;
   } catch (error) {
     console.log(error);

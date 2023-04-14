@@ -17,11 +17,10 @@ const Home = ({setCurrentId}) => {
   
   return (
     <Container maxWidth='xl' sx={{marginBottom:'200px'}}>
-        <Grid container justifyContent='space-between' alignItems="stretch" spacing={3} >
-          <Grid item xs={2} sm={2} md={1}>
+        <Grid container justifyContent='space-between' alignItems="stretch" >
+          <Grid item xs={2} sm={2} md={2}>
             <SearchPosts/>
           </Grid>
-
           <Grid item xs={12} sm={6} md={10}>
             <Posts setCurrentId={setCurrentId}/>
           </Grid>

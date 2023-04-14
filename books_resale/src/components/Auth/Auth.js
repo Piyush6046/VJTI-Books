@@ -169,25 +169,6 @@ function Auth() {
           )}
         </form>
       </div>
-      {/* <div className="a-right">
-        <form className="infoForm authForm">
-        <h3>{isSignUp ? `Log In `: `Sign Up`}</h3>
-          <div>
-            <input type="text" placeholder='email'
-              className='infoInput' name='email' />
-          </div>
-          <div>
-            <input type="text" placeholder='Password'
-              className='infoInput' name='password' />
-          </div>
-          <div>
-            <span > Don't have an account!</span>
-           
-            <button className='button infoButton' onClick={ToggleLogin}>Signup</button>
-          </div>
-          <button className='button infoButton submitButton' type='submit'>LogIn</button>
-        </form>
-      </div> */}
     </div>
   );
 }
