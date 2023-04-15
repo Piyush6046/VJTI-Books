@@ -11,9 +11,9 @@ const SavedPosts = () => {
 
   return (
     <div className='PostsPage'>
-      <Grid container maxWidth='xl' spacing={3} marginTop='5px' display='flex' justifyContent=''>
+      <Grid container maxWidth='xl' spacing={3} marginTop='5px' display='flex'>
         {savedposts?.map((post)=>(
-          <Grid item sm={6} md={4} lg={4} key={post._id} >
+          <Grid item sm={6} md={4} lg={3} key={post._id} >
             <Post post={post}/>
           </Grid>
         ))}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  Box,
   Button,
   Card,
   CardActions,
@@ -74,29 +75,28 @@ const Post = ({ post , setCurrentId}) => {
   return (
     <Card elevation={4}
       sx={{
-        maxWidth: 345,
-        minWidth:340,
-        padding: 3,
-        // backgroundColor: "#FFE996",
-        backgroundColor:'#fcda71',
+        maxWidth: 300, // reduced maxWidth to make card smaller
+        minWidth: 280, // reduced minWidth to make card smaller
+        padding: 2, // reduced padding to make card smaller
+        backgroundColor: '#fcda71',
         borderRadius: 5,
         ':hover': {
           boxShadow: 12, // theme.shadows[20]
         },
-        position:'relative'
+        position: 'relative',
       }}
     >
       <CardMedia
         component="img"
         alt="BookSet Image"
-        height="300"
+        height="220" // reduced height to make image smaller
         width="auto"
         image={post.books_stack}
         sx={{ borderRadius: 5 }}
       />
       {/* ******************* */}
 
-      {flag &&
+      {flag ? (
       <div className="overlay2">
             <Button
               id="fade-button"
@@ -105,7 +105,7 @@ const Post = ({ post , setCurrentId}) => {
               <MoreHorizIcon className="overlay"/>
             </Button>
             
-            <Menu 
+            <Menu
               id="fade-menu"
               anchorEl={anchorEl}
               open={open}
@@ -117,7 +117,14 @@ const Post = ({ post , setCurrentId}) => {
               <MenuItem onClick={() => { dispatch(deletePost(post._id)) ; handleClose()}}><DeleteIcon sx={{mr:1}}/>Delete</MenuItem>
             </Menu>
           </div>
-          }
+          ) : (
+          <div className="overlay2save">
+            <IconButton
+              onClick={handleSave}
+              sx={{ p:0.25,borderRadius:2,backgroundColor:'#fcda71','&:hover':{backgroundColor:'#fcda71'}}}
+              disabled={!user}>
+                <SaveIcon className="overlaySave"/>
+            </IconButton></div>)}
           
           {/* *************** */}
 
@@ -136,55 +143,47 @@ const Post = ({ post , setCurrentId}) => {
             post.semester.toUpperCase() +
             " SEM "}
         </Typography>
-        <IconButton
-          onClick={handleSave}
-          sx={{ pt:0 }}
-          disabled={!user}>
-            <SaveIcon/>
-      </IconButton>
       </div>
         <Typography
           variant="body2"
           color="black"
           sx={{ fontFamily: "Merriweather", fontWeight: "bold" }}
         >
-          <p style={{marginBottom:'4px'}}>Subjects:</p> {post.book1},{post.book2},{post.book3},{post.book4},
-          {post.book5}
+          <p style={{marginBottom:'4px'}}>Subjects:</p>
+            {post.book1 && <span>{post.book1} </span>}
+            {post.book2 && <span>, {post.book2} </span>}
+            {post.book3 && <span>, {post.book3} </span>}
+            {post.book4 && <span>, {post.book4} </span>}
+            {post.book5 && <span>, {post.book5}</span>}
         </Typography>
       </CardContent>
       <Divider />
-      <CardContent sx={{ textAlign: "left", fontWeight: "bold" }}>
-        <Typography sx={{ fontFamily: "Merriweather", fontWeight: "bold" }}>
-          Price: {post.resale_price}
-          <Button
-            variant="contained"
-            sx={{
-              // backgroundColor: "#F9C810",
-              backgroundColor: "#F9C810",
-              color: "black",
-              marginLeft: 7,
-              fontWeight: "bold",
-              ':hover': {
-                backgroundColor:'#F9C810' // theme.shadows[20]
-              },
-            }}
-            onClick={openPost}
-          >
-            View Details
-          </Button>
-          {/* uncomment below code for delete button */}
-          {/* <Button
-            size="small"
-            color="primary"
-            onClick={() => dispatch(deletePost(post._id))}
-            // disabled={!flag}
-          >
-            <DeleteIcon fontSize="small" /> Delete
-          </Button> */}
-
-          
-        </Typography>
-      </CardContent>
+        <CardContent sx={{ textAlign: "left", fontWeight: "bold",marginTop:'12px', paddingTop: 0, paddingBottom: 0 }}>
+          <Typography sx={{ fontFamily: "Merriweather", fontWeight: "bold", display: 'flex', alignItems: 'center' }}>
+            Price: <span>&#8377;</span> {post.resale_price}
+            <Box sx={{ flexGrow: 1 }} /> {/* Adds a flex-grow box to push the button to the end */}
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "#F9C810",
+                color: "black",
+                marginLeft: 1,
+                paddingLeft: 2,
+                paddingRight: 2,
+                paddingTop: 0.25,
+                paddingBottom: 0.25,
+                fontWeight: "bold",
+                ':hover': {
+                  backgroundColor: '#F9C810',
+                },
+                minWidth: '90px',
+              }}
+              onClick={openPost}
+            >
+              View Details
+            </Button>
+          </Typography>
+        </CardContent>
     </Card>
   );
 };

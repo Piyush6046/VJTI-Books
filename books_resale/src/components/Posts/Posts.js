@@ -10,7 +10,7 @@ const Posts = ({setCurrentId}) => {
   if(!posts?.length) {return  (<div style={{height:'100vh',width:'100%',margin:'30vh 70vh'}}><CircularProgress color='inherit' size='5em'/></div>);}
   return (
     <div className='postsPage'>
-      <Grid container spacing={3} marginTop='10px'>
+      <Grid container spacing={3} marginTop='0px'>
         {posts?.map((post)=>(
           <Grid item sm={6} md={4} lg={4} key={post._id} >
             <Post post={post} setCurrentId={setCurrentId}/>

@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux'
 import "./Auth.css";
 import logo from '../../images/logo.png'
 import { logIn , signUp } from "../../actions/authActions";
-import { Paper, Typography } from "@mui/material";
+import { Button, Paper, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 function Auth() {
@@ -88,6 +88,7 @@ function Auth() {
                 name="firstname"
                 onChange={handleChange}
                 value={authData.firstname}
+                required
               />
               <input
                 type="text"
@@ -96,6 +97,7 @@ function Auth() {
                 name="lastname"
                 onChange={handleChange}
                 value={authData.lastname}
+                required
               />
             </div>
           )}
@@ -108,6 +110,7 @@ function Auth() {
               name="email"
               onChange={handleChange}
               value={authData.email}
+              required
             />
           </div>
 
@@ -119,6 +122,7 @@ function Auth() {
               name="password"
               onChange={handleChange}
               value={authData.password}
+              required
             />
             {isSignUp && (
               <input
@@ -128,6 +132,7 @@ function Auth() {
                 name="confirmpassword"
                 onChange={handleChange}
                 value={authData.confirmpassword}
+                required
               />
             )}
           </div>
@@ -142,31 +147,14 @@ function Auth() {
           >
             *Confirm password is not same
           </span>
-          {isSignUp ? (
-            <>
-              <div>
-                <p> Already have an account. </p>
-                <button className="button infoButton but" onClick={ToggleLogin}>
-                  Log In
-                </button>
-              </div>
-              <button className="button infoButton submitButton" type="submit">
-                Signup
-              </button>
-            </>
-          ) : (
-            <>
-              <div>
-                <span> Don't have an account!</span>
-                <button className="button infoButton" onClick={ToggleLogin}>
-                  Signup
-                </button>
-              </div>
-              <button className="button infoButton submitButton" type="submit">
-                LogIn
-              </button>
-            </>
-          )}
+          <Button  type='submit' fullWidth variant='contained' style={{ backgroundColor:'#ffbf00',color:'black',border: "2px solid #ffbf00;", marginTop:'24px'}}>
+            {isSignUp ? 'Sign Up' : 'Log In'}
+          </Button>
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+             <Button onClick={ToggleLogin} >
+                {isSignUp ? 'Already have an account ? sign In' : `Don't have an account ? Sign Up`}
+              </Button>
+            </div>
         </form>
       </div>
     </div>

@@ -28,7 +28,7 @@ const Home2 = () => {
   return (
     <Container maxWidth='xl' sx={{marginBottom:'50px'}} >
         <Grid container justifyContent='center'>
-          <Grid item md={10.5}>
+          <Grid item md={12}>
             <SavedPosts />
           </Grid>
         </Grid>
