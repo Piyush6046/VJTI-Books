@@ -14,6 +14,7 @@ import NoMatch from './components/NoMatch/NoMatch';
 import { getUser } from './actions/userActions';
 import { useDispatch } from 'react-redux';
 import NoSearch from './components/NoMatch/NoSearch';
+import MyPostsHome from './components/Home/MyPostsHome';
 
 function App() {
   const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -37,6 +38,7 @@ function App() {
           <Route path='/auth' element={<Auth/>}></Route>
           <Route path='/chat' element={<Messenger/>}/>
           <Route path='/savedBooks' element={<Home2/>}></Route>
+          <Route path='/myBooks' element={<MyPostsHome/>}></Route>
           <Route path='/books/search/booknotfound' element={<NoSearch/>}></Route>
           <Route path='*' element = {<NoMatch/>} ></Route>
         </Routes>

@@ -8,7 +8,7 @@ router.post('/',auth,createPost);
 router.get('/',getPosts);
 router.get('/search',getPostsBySearch);
 router.get("/:id",getPost);
-router.delete('/:id',deletePost);
+router.delete('/:id',auth,deletePost);
 router.patch('/:id',auth,updatePost)
 
 export default router;

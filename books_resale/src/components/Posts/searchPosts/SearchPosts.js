@@ -53,10 +53,10 @@ const SearchPosts = () => {
         <div style={{marginTop:'4%',marginLeft:'5px'}} >
           <FormControl>
               <RadioGroup name='year' value={year} onChange={setTheYear}>
-                <FormControlLabel value="FE" control={<Radio sx={{color:'black',pt:0.75}}/>} label="FIRST" />
-                <FormControlLabel value="SE" control={<Radio sx={{color:'black',pt:0.75}}/>} label="SECOND" />
-                <FormControlLabel value="TE" control={<Radio sx={{color:'black',pt:0.75}}/>} label="THIRD" />
-                <FormControlLabel value="BE" control={<Radio sx={{color:'black',pt:0.75}}/>} label="FOURTH" />
+                <FormControlLabel value="FE" control={<Radio sx={{'&, &.Mui-checked': {color: 'black',},color:'black',pt:0.75}}/>} label="FIRST" />
+                <FormControlLabel value="SE" control={<Radio sx={{'&, &.Mui-checked': {color: 'black',},color:'black',pt:0.75}}/>} label="SECOND" />
+                <FormControlLabel value="TE" control={<Radio sx={{'&, &.Mui-checked': {color: 'black',},color:'black',pt:0.75}}/>} label="THIRD" />
+                <FormControlLabel value="BE" control={<Radio sx={{'&, &.Mui-checked': {color: 'black',},color:'black',pt:0.75}}/>} label="FOURTH" />
               </RadioGroup>
           </FormControl>
         </div>
@@ -66,9 +66,9 @@ const SearchPosts = () => {
         <div style={{marginTop:'5%'}}>
         <FormControl>
               <RadioGroup name='branch' value={branch}>
-                <FormControlLabel value="CE" control={<Radio sx={{color:'black',pt:0.75}}/>} onChange={setTheBranch} label="CE" />
-                <FormControlLabel value="IT" control={<Radio sx={{color:'black',pt:0.75}}/>} onChange={setTheBranch} label="IT" />
-                <FormControlLabel value="EnTC" control={<Radio sx={{color:'black',pt:0.75}}/>} onChange={setTheBranch} label="EnTC" />
+                <FormControlLabel value="CE" control={<Radio sx={{'&, &.Mui-checked': {color: 'black',},color:'black',pt:0.75}}/>} onChange={setTheBranch} label="CE" />
+                <FormControlLabel value="IT" control={<Radio sx={{'&, &.Mui-checked': {color: 'black',},color:'black',pt:0.75}}/>} onChange={setTheBranch} label="IT" />
+                <FormControlLabel value="EnTC" control={<Radio sx={{'&, &.Mui-checked': {color: 'black',},color:'black',pt:0.75}}/>} onChange={setTheBranch} label="EnTC" />
               </RadioGroup>
           </FormControl>
         </div>
@@ -77,8 +77,8 @@ const SearchPosts = () => {
         <div style={{marginTop:'5%'}}>
         <FormControl>
               <RadioGroup name='semester' value={semester}>
-                <FormControlLabel value="odd" control={<Radio sx={{color:'black',pt:0.75}}/>} onChange={setTheSemester} label="ODD (1st)" />
-                <FormControlLabel value="even" control={<Radio sx={{color:'black',pt:0.75}}/>} onChange={setTheSemester} label="EVEN (2nd)" />
+                <FormControlLabel value="odd" control={<Radio sx={{'&, &.Mui-checked': {color: 'black',},color:'black',pt:0.75}}/>} onChange={setTheSemester} label="ODD (1st)" />
+                <FormControlLabel value="even" control={<Radio sx={{'&, &.Mui-checked': {color: 'black',},color:'black',pt:0.75}}/>} onChange={setTheSemester} label="EVEN (2nd)" />
               </RadioGroup>
           </FormControl>
         </div>

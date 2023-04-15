@@ -4,31 +4,10 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import decode from 'jwt-decode';
 import './Navbar.css'
 import logo from '../../images/logo.png'
+import AccountButton from './AccountButton';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-
-  const location = useLocation();
-
-  const logoutHandler = () => {
-    localStorage.clear();
-    navigate('/auth')
-  }
-
-  useEffect(()=>{
-    setUser(JSON.parse(localStorage.getItem('profile')));//
-    //it convers the string into JS object and sets it as a user
-    const token = user?.token;
-
-    if(token){
-      const decoded_token = decode(token);
-      if((decoded_token.exp*1000)<(new Date().getTime())){//exp time is in milisecond thats why multiplying by 1000
-        logoutHandler();//if token has expired we are logging out of the system
-      }
-    }
-  },[location])
-
   return (
     <>
     <div style={{position:'fixed',zIndex:'2',width:'92rem'}}>
@@ -47,10 +26,7 @@ const Navbar = () => {
         <Button  sx={{color:'black',backgroundColor:'#ffbf00'}} variant='outlined' onClick={()=>{navigate('/form')}}> Form</Button>
         <Button  sx={{color:'black',backgroundColor:'#ffbf00'}} variant='outlined' onClick={()=>{navigate('/chat')}}> chat</Button>
         <Button  sx={{color:'black',backgroundColor:'#ffbf00'}} variant='outlined' onClick={()=>{navigate('/savedBooks')}}> saved books</Button>
-        {
-         user ? (<Button  sx={{color:'black',backgroundColor:'#ffbf00'}} variant='outlined' onClick={logoutHandler}> Log Out</Button>) : 
-         (<Button  sx={{color:'black',backgroundColor:'#ffbf00'}} variant='outlined' onClick={()=>{navigate('/auth')}}> Sign In</Button>)
-        }
+        <AccountButton/>
       </div>
     </AppBar>
     <Divider variant='middle' sx={{color:'black',borderBottomWidth:'2px'}}/>

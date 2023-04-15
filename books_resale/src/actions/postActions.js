@@ -59,7 +59,7 @@ export const getPostsBySearch = (searchQuery,navigate) => async(dispatch) => {
     const {data} = await api.fetchPostsBySearch(searchQuery);
     console.log("data is ", data );
     if(!data.length){//if posts are not available then it will redirect to nomatch page
-      navigate(`/books/search/booknotfound`)
+      navigate(`/posts/search/notmatch`)
     }else{
       //second one is because we have send it as a object where {data:posts}
       dispatch({type:FETCH_BY_SEARCH , payload:data})
