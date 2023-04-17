@@ -1,24 +1,33 @@
 .image {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   /* margin-right: 10px; */
   cursor: pointer;
-  border: 1px solid rgb(177, 174, 174);
+  border: 1px solid #494F55;
   margin: 0px;
   padding: 4px;
 }
 
 .main-image {
-  width: 400px;
-  height: 400px;
+  /* width: 200px; */
+  height: 300px;
+  width: fit-content;
   margin: 20px;
-  margin-left: 50px;
+  display: block;
+  margin: auto;
   padding: 5px;
-  box-shadow: 0px 0px 2px 2px #e0dede;
+  box-shadow: 0px 0px 2px 2px #494F55;
 }
 
 li{
-  padding: 1% 1% 1% 2%;
+  padding: 0.5% 0.5% 0.5% 1.5%;
+}
+
+.image_section{
+  margin-top: 15px;
+  margin-bottom: 35px;
+  display:flex;
+  justify-content:center;
 }
 
 li:hover{
@@ -27,3 +36,11 @@ li:hover{
   border-radius: 10px;
   width: 88%;
 }
+
+.page_details_buttons{
+  margin-left: 30px;
+}
+
+  /* dark yellow: #F9C810
+  light-yellow: #FFE996 (card body vala);
+  light-yellow:#FEE795 (background vala) */

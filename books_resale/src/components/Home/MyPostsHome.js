@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { getPosts } from '../../actions/postActions';
 import MyPosts from '../Posts/MyPosts';
 
-const MyPostsHome = () => {
+const MyPostsHome = ({setCurrentId}) => {
   const dispatch = useDispatch();
 
   useEffect(()=>{
@@ -17,7 +17,7 @@ const MyPostsHome = () => {
     <Container maxWidth='xl' sx={{marginBottom:'50px'}} >
         <Grid container justifyContent='center'>
           <Grid item md={12}>
-            <MyPosts/>
+            <MyPosts setCurrentId={setCurrentId}/>
           </Grid>
         </Grid>
     </Container>

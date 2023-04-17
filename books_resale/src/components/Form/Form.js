@@ -8,6 +8,7 @@ import FileBase from 'react-file-base64';
 import './form.css'
 import { useNavigate } from 'react-router-dom';
 import BookComponent from './BookComponent';
+import { FormHelperText } from '@mui/material';
 
 const Form = ({currentId,setCurrentId}) => {
   
@@ -88,7 +89,7 @@ const Form = ({currentId,setCurrentId}) => {
           </Select>
           </FormControl>
           <div style={{display:'flex',justifyContent:'space-between'}}>
-          <FormControl sx={{width:1/4}}>
+          <FormControl sx={{width:1/4}} required>
           <InputLabel id='year'>Year</InputLabel>
             <Select
               labelId="year"
@@ -102,7 +103,7 @@ const Form = ({currentId,setCurrentId}) => {
             <MenuItem value={'BE'}>4th Year</MenuItem>
           </Select>
         </FormControl>
-        <FormControl sx={{width:1/4}}>
+        <FormControl sx={{width:1/4}} required>
           <InputLabel id='branch'>Branch</InputLabel>
             <Select
               labelId="branch"
@@ -115,7 +116,7 @@ const Form = ({currentId,setCurrentId}) => {
             <MenuItem value={'EnTC'}>Electronics and Telecommunication</MenuItem>
           </Select>
         </FormControl>
-        <FormControl sx={{width:1/4}}>
+        <FormControl sx={{width:1/4}} required>
           <InputLabel id='semester'>Semester</InputLabel>
             <Select
               labelId="semester"
@@ -133,20 +134,18 @@ const Form = ({currentId,setCurrentId}) => {
 
           <TextField name="original_price" variant="outlined" label="Original Price" fullWidth 
           value={postData.original_price} onChange={(e) => setPostData({ ...postData, original_price: e.target.value })} 
-          sx={{width:1/4,mt:1}}/>
+          sx={{width:1/4,mt:1}} required/>
 
           <TextField name="resale_price" variant="outlined" label="Resale Price" fullWidth 
           value={postData.resale_price} onChange={(e) => setPostData({ ...postData, resale_price: e.target.value })} 
-          sx={{width:1/4,mt:1}}/>
+          sx={{width:1/4,mt:1}} required/>
 
-          <FormControl style={{display:'flex',flexDirection:'row',justifyContaint:'space-between'}} sx={{width:1/4,mt:1}}>
-            {/* <FormLabel sx={{mt:2.45,mr:2}} id="fix_nego">Price : </FormLabel> */}
-            {/* <Typography sx={{mt:2.40,mr:2,fontSize:18}}>Price : </Typography> */}
-            <RadioGroup row aria-labelledby="fix_nego" name="fix_nego" 
+          <FormControl style={{display:'flex',flexDirection:'row',justifyContaint:'space-between'}} sx={{width:1/4,mt:1}} required>
+            <RadioGroup row name="fix_nego" 
               value={postData.fix_nego}
               onChange={(e)=>setPostData({...postData,fix_nego:e.target.value})}>
-              <FormControlLabel value="fixed" control={<Radio />} label="Fixed" />
-              <FormControlLabel value="negotiable" control={<Radio />} label="Negotiable" />
+              <FormControlLabel value="fixed" control={<Radio sx={{'&, &.Mui-checked': {color: '#494F55'}}}/>} label="Fixed" />
+              <FormControlLabel value="negotiable" control={<Radio sx={{'&, &.Mui-checked': {color: '#494F55'}}}/>} label="Negotiable" />
             </RadioGroup>
           </FormControl>
         </div>
@@ -183,6 +182,11 @@ const Form = ({currentId,setCurrentId}) => {
             ))}
           </div>
 
+          <Typography sx={{ml:'0.5rem', mt:'2%'}}> Whatsapp Number : </Typography>
+          <TextField name="whatsapp_number" variant="outlined" label="whatsapp Number" fullWidth 
+            value={postData.whatsapp_number} onChange={(e) => setPostData({ ...postData, whatsapp_number : e.target.value })} 
+            sx={{width:1/4,mt:1}}/>
+            <FormHelperText>This field is optional but highly recommended</FormHelperText>
             <Button variant="outlined" size="large" type="submit" fullWidth sx={{m:'2% 0 1% 0',backgroundColor:"#f9ca3d",color:'black'}}>
               Submit
             </Button>

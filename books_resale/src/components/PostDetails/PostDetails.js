@@ -4,8 +4,9 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getPost } from "../../actions/postActions";
 import { useState } from "react";
 import "./PostDetails.css";
-import { Button, Card, CircularProgress, Link, Paper, Typography } from "@mui/material";
+import { Button, Card, CircularProgress, Link, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { addConversation } from "../../api/post";
+import SubjectTable from "./SubjectTable";
 
 const PostDetails = () => {
   const { post } = useSelector((state) => state.posts);
@@ -17,100 +18,112 @@ const PostDetails = () => {
   const [mainImage, setMainImage] = useState(post?.books_stack);
   const allImages = [post?.books_stack, post?.book1_img, post?.book2_img, post?.book3_img, post?.book4_img, post?.book5_img];
   const allNonNullImages = allImages?.filter((image)=>image!=="");
+  const isCreator = user?.user?._id === post?.creator;
 
   const hrefLink = `https://wa.me/${post?.whatsapp_number}`
 
   useEffect(() => {
-    dispatch(getPost(id));
+    const gettingPost = ()=>{
+      dispatch(getPost(id));
+      window.scrollTo(0,0);
+    };
+    gettingPost();
   }, [dispatch, id]);
 
   useEffect(() => {
     setMainImage(post?.books_stack);
   }, [post]);
 
-  if(!post) {return  (<div style={{height:'100vh',width:'100%',margin:'30vh 70vh'}}><CircularProgress color='inherit' size='5em'/></div>);}
+  if(!post) {return  (<div style={{height:'100vh',width:'100%',margin:'25vh 90vh'}}><CircularProgress color='inherit' size='5em'/></div>);}
 
   const addConvo = async() => {
     await addConversation(userId,post?.creator);
     navigate('/chat');
   }
 
+  const createData = (sr_num, book_name, book_pub, book_img) => {
+    return { sr_num, book_name, book_pub, book_img };
+  }
+
+  const rows = [1, 2, 3, 4, 5].map(bookNumber => {
+      return createData(bookNumber, post[`book${bookNumber}`], post[`book${bookNumber}_pub`], post[`book${bookNumber}_img`]);
+  });
+
   return (
-    <div style={{display:'flex'}}>
+    
+    <div className="main_container" style={{display:'flex'}}>
+      
+      <div className="left-container">
       <Card elevation={3}
-        sx={{backgroundColor:'inherit', maxWidth: 540, m:4,ml:8, padding: 1.5, alignContent: "center" }}
+        sx={{backgroundColor:'#fcda71',height:"65%", m:2,ml:8, px: 1.7,py:3, alignContent: "center"}}
       // class="booksDisplayCard"
       >
         <img
           src={mainImage}
           alt="Main Image"
           className="main-image"
-          sx={{ maxWidth: 500, Height: 500, padding: 3, margin: 0 }}
+          style={{p: 3}}
         />
-        <div style={{display:'flex',justifyContent:'center'}}>
+        <div className="image_section">
           {allNonNullImages.map((image, index) => (
             <img
               key={index}
               src={image}
               alt={`Image ${index}`}
               className="image"
-              // sx={{ maxWidth: 10, height: 30 }}
               onClick={() => setMainImage(image)}
             />
           ))}
         </div>
       </Card>
+      {!isCreator && 
+        <Paper sx={{backgroundColor:"#FEE795",p:'20px',ml:8,mr:2,mt:5}} elevation={3}>
+          <div className="page_details_buttons">
+            <Button variant="contained" onClick={addConvo} disabled={!user?.token} sx={{':hover': {backgroundColor: '#F9C810'}, marginRight:'2rem', backgroundColor: !user?.token ?  '#f2f2f2' : '#F9C810',color:'black'}}>
+              Chat with seller
+            </Button>
+            <Button target="blank" href={hrefLink} variant="contained" disabled={!user?.token} sx={{':hover': {backgroundColor: '#F9C810'}, backgroundColor: !user?.token ?  '#f2f2f2' : '#F9C810',color:'black'}}>
+              Connect on Whatsapp
+            </Button>
+          </div>
+          </Paper>
+        }
+        </div>
 
-      <Paper elevation={3} sx={{backgroundColor:"inherit", m:5,p:5,width:'50%'}}>
+      <Paper elevation={3} sx={{backgroundColor:"#fcda71", m:2,ml:8,px:5,py:2,width:'47%'}}>
       <Typography
           gutterBottom
-          variant="h3"
+          variant="h4"
           component="div"
           sx={{ fontFamily: "Merriweather", fontWeight: "bold" }}
         >
           {post.year + " " + post.branch + " " + post.semester.toUpperCase() + " SEM "}
         </Typography>
-        <Typography variant="h5">
-          Subjects Available :
-          <ol style={{padding:'1rem 0 0 3rem'}}>
-            
-              {[1, 2, 3, 4, 5].map(bookNumber => (
-                post[`book${bookNumber}`] || post[`book${bookNumber}_pub`] ? (
-                <li key={bookNumber} onClick={() => setMainImage(post[`book${bookNumber}_img`])}>
-                  {post[`book${bookNumber}`]} - {post[`book${bookNumber}_pub`]}
-                </li>
-                ) : null
-              ))}
-          </ol>
-        </Typography>
-        <Typography variant="h5" sx={{mt:2,display:'flex',flexDirection:'column',gap:1}}>
-            <p>Original Price: <span>&#8377;</span> {post?.original_price}</p>
-            <p>Resale Price :  <span>&#8377;</span>  {post?.resale_price} ({post?.fix_nego})</p>
-            <p>Seller name : {post?.seller_name}</p>
-        </Typography>
-          <div className="page_details_buttons">
-            <Button variant="outlined" onClick={addConvo} disabled={!user?.token} sx={{marginTop:'20px', marginRight:'2rem', backgroundColor: !user?.token ?  '#f2f2f2' : '#f9ca3d',color:'black'}}>
-              Chat with seller
-            </Button>
-            <Button target="blank" href={hrefLink} variant="outlined" disabled={!user?.token} sx={{marginTop:'20px', backgroundColor: !user?.token ?  '#f2f2f2' : '#f9ca3d',color:'black'}}>
-              Connect on Whatsapp
-            </Button>
-          </div>
+
+        <SubjectTable rows={rows} setMainImage={setMainImage}/>
+
+      <TableContainer component={Paper} sx={{backgroundColor:'#fff5d1',mt:1}}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="center">Original Price</TableCell>
+            <TableCell align="center">Resale Price</TableCell>
+            <TableCell align="center">Seller</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+              <TableCell align="center"><span>&#8377;</span> {post?.original_price}</TableCell>
+              <TableCell align="center"><span>&#8377;</span> {post?.resale_price}{post?.fix_nego && ` (${post?.fix_nego})`}</TableCell>
+              <TableCell align="center">{post?.seller_name}</TableCell>
+        </TableBody>
+      </Table>
+    </TableContainer>
+
+
       </Paper>
       </div>
   );
 };
-{/* <div>
-      Post Details:
-      {post && post.books_stack && (
-        <img src={post.books_stack} alt="Image of books stack" />
-      )}
-      {" " +
-        post?.branch +
-        " " +
-        post?.semester.toUpperCase() +
-        " SEM "}
-    </div> */}
 
 
 /*

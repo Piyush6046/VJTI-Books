@@ -31,7 +31,7 @@ const Navbar = () => {
     </AppBar>
     <Divider variant='middle' sx={{color:'black',borderBottomWidth:'2px'}}/>
     </div>
-    <div style={{height:'130px',width:'100px'}}> </div>
+    <div style={{height:'110px',width:'100px'}}> </div>
     </>
   );
 };

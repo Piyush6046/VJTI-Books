@@ -38,7 +38,7 @@ function App() {
           <Route path='/auth' element={<Auth/>}></Route>
           <Route path='/chat' element={<Messenger/>}/>
           <Route path='/savedBooks' element={<Home2/>}></Route>
-          <Route path='/myBooks' element={<MyPostsHome/>}></Route>
+          <Route path='/myBooks' element={<MyPostsHome setCurrentId={setCurrentId}/>}></Route>
           <Route path='/books/search/booknotfound' element={<NoSearch/>}></Route>
           <Route path='*' element = {<NoMatch/>} ></Route>
         </Routes>
