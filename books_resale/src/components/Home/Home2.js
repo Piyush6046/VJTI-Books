@@ -16,7 +16,7 @@ const Home2 = () => {
 
   if(!user){
     return(
-      <Paper elevation={5} className='paper' sx={{backgroundColor:'#fcf4dc',py:1,width:'50%',height:'50%',marginTop:'2%',marginX:'auto'}}>
+      <Paper elevation={5} className='paper' sx={{backgroundColor:'#fcda71',py:1,width:'50%',height:'50%',marginTop:'2%',marginX:'auto'}}>
         <Typography variant='h6' align='center'>
           Please sign in to <br/>
            view your saved posts <br/>

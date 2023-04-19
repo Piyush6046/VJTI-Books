@@ -12,6 +12,12 @@
   padding-left: 8px;
   margin-right: 50px;
 }
+
+.clickedConversation{
+  background-color: rgb(234, 229, 229);
+  border-radius: 10px;
+  width: 100%;
+}
 /* .chatOnline {
   flex: 3;
 } */

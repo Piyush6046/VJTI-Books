@@ -36,7 +36,8 @@ const Messenger = () => {
         text : data.text,
         createdAt : Date.now(),
       })
-    })
+    });
+    window.scrollTo(0, 0);
   },[])
 
   useEffect(()=>{
@@ -106,7 +107,7 @@ const Messenger = () => {
 
   if(!user){
     return(
-      <Paper elevation={5} className='paper' sx={{backgroundColor:'#fcf4dc',py:1,width:'50%',height:'50%',marginTop:'2%',marginX:'auto'}}>
+      <Paper elevation={5} className='paper' sx={{backgroundColor:'#fcda71',py:1,width:'50%',height:'50%',marginTop:'2%',marginX:'auto'}}>
         <Typography variant='h6' align='center'>
           Please sign in to <br/>
            access the chat feature <br/>
@@ -121,7 +122,7 @@ const Messenger = () => {
         <div className="chatMenuWrapper">
           <input placeholder='Search for friends' className='chatMenuInput' />
           {conversations?.map((convo) => (
-            <div onClick={() => setCurrentChat(convo)}>
+            <div onClick={() =>{ setCurrentChat(convo);}} className={convo===currentChat ? 'clickedConversation' : ''}>
               <Conversation key={userId} conversation={convo} currentUserId={userId} onlineUsers={onlineUsers}/>
             </div>
           ))}
@@ -132,9 +133,9 @@ const Messenger = () => {
       <div className="chatBox">
         {/* this div is for top bar of messenger like ehatsapp showing recivers name */}
       {/* <div style={{position:'fixed', width:'60%',zIndex:'3',color:'inherit', backgroundColor: 'rgb(234, 229, 229)',borderRadius:'20px'}}>
-                  <Conversation key={userId} conversation={currentChat} currentUserId={userId} onlineUsers={onlineUsers}></Conversation>
-                </div>
-                <div className='backDiv' style={{height:'80px'}}></div> */}
+          <Conversation key={userId} conversation={currentChat} currentUserId={userId} onlineUsers={onlineUsers}></Conversation>
+            </div> */}
+      {/* <div className='backDiv' style={{height:'80px'}}></div> */}
         <div className="chatBoxWrapper">
           <div className="chatBoxTop">
             {currentChat ? (

@@ -6,10 +6,11 @@ const authReducer = (state = {authData:null,loading:false,error:false},action) =
       return {...state,loading:true,error:false} ;
     case AUTH_SUCCESS :
       localStorage.setItem('profile',JSON.stringify({...action?.payload}));
-      //1
       return {...state,authData:action.payload,loading:false,error:false};
     case AUTH_FAIL :
       return {...state,loading:false,error:true};
+    case "LOGOUT" :
+      return {...state,authData:null};
     default :
       return state;
   }

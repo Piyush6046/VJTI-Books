@@ -6,7 +6,7 @@ export const createConversation = async (req, res) => {
     members: [req.body.senderId, req.body.receiverId],
   });
   try {
-    const conversation = await ConversationModel.findOne({members:[req.body.senderId,req.body.receiverId]});
+    const conversation = await ConversationModel.findOne({members:{ $all:[req.body.senderId,req.body.receiverId]}});
     if(conversation){
       console.log("conversation already exist");
       return res.status(200).json({message:'conversation already exist'});

@@ -12,3 +12,18 @@
 .image{
   border:0px;
 }
+
+.smiley-face{
+  transform: rotate(90deg);
+}
+
+.button-style {
+  color: black;
+  background-color: #ffbf00;
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}

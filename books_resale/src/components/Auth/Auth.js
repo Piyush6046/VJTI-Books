@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux'
 import "./Auth.css";
 import logo from '../../images/logo.png'
 import { logIn , signUp } from "../../actions/authActions";
-import { Button, Paper, Typography } from "@mui/material";
+import { Button, Input, Paper, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 function Auth() {
@@ -52,32 +52,22 @@ function Auth() {
     });
   }
 
-  if(user){
-    return(
-      <Paper elevation={5} className='paper' sx={{backgroundColor:'#fcf4dc',py:2,width:'50%',height:'50%',marginTop:'2%',marginX:'auto'}}>
-        <Typography variant='h6' align='center'>
-          You are already Logged In <br/>
-        </Typography>
-      </Paper>
-    )
-  }
-
   return (
     <div className="Auth">
       <div>
-        <img src={logo} style={{height:'250px',width:'250px'}}/>
+        <img src={logo} style={{height:'150px',width:'150px'}}/>
       </div>
 
       <div className="a-left">
         <div className="Webname">
-          <h1 style={{fontSize:'70px'}}>Book Resale</h1>
+          <h1 style={{fontSize:'60px',color:'#333333'}}>UniBooks</h1>
           <h2>&nbsp;Use it, resale it</h2>
         </div>
       </div>
 
       <div className="a-right">
         <form className="infoForm authForm" onSubmit={handleSubmit}>
-          <h3>{isSignUp ? `Sign Up` : `Log In`}</h3>
+          <h2 className="webname">{isSignUp ? `Sign Up` : `Log In`}</h2>
 
           {isSignUp && (
             <div>
@@ -147,11 +137,11 @@ function Auth() {
           >
             *Confirm password is not same
           </span>
-          <Button  type='submit' fullWidth variant='contained' style={{ backgroundColor:'#ffbf00',color:'black',border: "2px solid #ffbf00;", marginTop:'24px'}}>
+          <Button  type='submit' fullWidth variant='contained' style={{ backgroundColor:'#ffbf00',color:'black',border: "2px solid #ffbf00;", marginTop:'15px'}}>
             {isSignUp ? 'Sign Up' : 'Log In'}
           </Button>
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-             <Button onClick={ToggleLogin} >
+             <Button onClick={ToggleLogin} sx={{marginTop:'-10px'}}>
                 {isSignUp ? 'Already have an account ? sign In' : `Don't have an account ? Sign Up`}
               </Button>
             </div>

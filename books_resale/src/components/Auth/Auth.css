@@ -3,6 +3,7 @@
   align-items:center;
   justify-content:center;
   height: 80vh;
+  width:100vw;
   gap:4rem;
   position: relative;
 }
@@ -23,7 +24,12 @@
 }
 .Webname>h1{
   font-size: 3rem;
+  letter-spacing: 1.75px;
   /* background-color: darkgoldenrod; */
+}
+
+h2{
+  letter-spacing: 0.75px;
 }
 .Webname>h6{
   font-size: 0.85rem;
@@ -45,8 +51,11 @@
   outline: none;
   background-color: #fffeff;
   border-radius: 8px;
-  padding: 20px;
+  padding: 18px;
+  width: 100%;
   flex: 1;
+  font-family: Arial, sans-serif;
+  /* font-size: 14px; */
 }
 
 .infoForm>div{
@@ -70,9 +79,10 @@
 .authForm{
   
   /* background-color:   #d6afe2b4 ; */
-  background-color:   #f1db98 ;
+  background-color:   #fcda71 ;
   border-radius: 1rem;
-  padding: 3rem;
+  padding: 2.75rem 3rem 2.75rem 3rem ;
+  width: 25vw;
   /* rgba(171, 130, 188, 0.822); */
 }
 
@@ -87,8 +97,10 @@
 }
 
 .submitButton{
-  margin: auto;
+  /* margin: auto; */
   font-size: medium;
+  color: #333333;
   border: 2px solid #ffbf00;
+  text-align: center;
   /* background-color:  hwb(294 38% 13%); */
 }

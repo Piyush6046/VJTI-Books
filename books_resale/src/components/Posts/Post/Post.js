@@ -11,6 +11,7 @@ import {
   Menu,
   MenuItem,
   Paper,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
@@ -118,14 +119,18 @@ const Post = ({ post , setCurrentId}) => {
             </Menu>
           </div>
           ) : (
+          <Tooltip title={!user?.token ? "Please sign in to use this functionality" : ""}>
           <div className="overlay2save">
             <IconButton
               onClick={handleSave}
               sx={{ p:0.25,borderRadius:2,backgroundColor:'#fcda71','&:hover':{backgroundColor:'#fcda71'}}}
               disabled={!user}>
                 <SaveIcon className="overlaySave"/>
-            </IconButton></div>)}
-          
+            </IconButton>
+            </div>
+            </Tooltip>
+            )}
+           
           {/* *************** */}
 
       <CardContent>

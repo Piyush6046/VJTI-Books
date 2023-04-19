@@ -13,6 +13,7 @@ const BookComponent = ({ label, name, value, pubValue, onTextChange, onPubChange
         value={value}
         onChange={onTextChange}
         sx={{ width: 1 / 4, mt: 1 }}
+        required={name==="book1"}
       />
       <TextField
         name={`${name}_pub`}
@@ -22,12 +23,14 @@ const BookComponent = ({ label, name, value, pubValue, onTextChange, onPubChange
         value={pubValue}
         onChange={onPubChange}
         sx={{ width: 1 / 4, mt: 1 }}
+        required={name==="book1"}
       />
       <FileBase
         type="file"
         multiple={false}
         onDone={onImgDone}
         style={{ margin: '16px 0px' }}
+        required={name==="book1"}
       />
     </div>
   );

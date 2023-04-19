@@ -48,7 +48,7 @@ const SearchPosts = () => {
 
   return (
     <div  style={{width:'100%'}}>
-      <Paper elevation={3} className='searchPosts' style={{backgroundColor: '#fcda71' ,marginTop:'1.5%',position:'fixed',borderRadius:'10px'}}>
+      <Paper elevation={3} className='searchPosts' style={{backgroundColor: '#fcdc77' ,marginTop:'1.5%',position:'fixed',borderRadius:'10px'}}>
         <label style={{fontSize:'24px',color:'black'}}>Year : </label>
         <div style={{marginTop:'4%',marginLeft:'5px'}} >
           <FormControl>

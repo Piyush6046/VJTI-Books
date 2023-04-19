@@ -8,6 +8,7 @@ const SavedPosts = () => {
   const { savedposts } = useSelector((state)=>state.posts);
   const user = JSON.parse(localStorage?.getItem('profile'));
   console.log("savedposts are : ",savedposts);
+  
   if(!savedposts?.length) {return  (<div style={{height:'100vh',width:'100%',margin:'25vh 90vh'}}><CircularProgress color='inherit' size='5em'/></div>);}
 
   return (
