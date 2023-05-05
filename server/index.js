@@ -8,6 +8,7 @@ import AuthRoutes from './routes/Auth.js'
 import UserRoutes from './routes/User.js'
 import ConversationRoutes from './routes/Conversation.js'
 import MessageRoutes from './routes/Message.js'
+import path from 'path'
 
 const app = express();
 
