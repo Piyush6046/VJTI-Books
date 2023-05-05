@@ -19,11 +19,11 @@ app.use(bodyParser.json({limit:'50mb',extended:true}));
 app.use(bodyParser.urlencoded({limit:'50mb',extended:true}));
 app.use(cors());
 
-app.use('/posts',PostRoutes);
-app.use('/auth',AuthRoutes);
-app.use('/user',UserRoutes);
-app.use('/conversations',ConversationRoutes);
-app.use('/messages',MessageRoutes);
+app.use('/api/posts',PostRoutes);
+app.use('/api/auth',AuthRoutes);
+app.use('/api/user',UserRoutes);
+app.use('/api/conversations',ConversationRoutes);
+app.use('/api/messages',MessageRoutes);
 
 app.use(express.static(path.join(__dirname,"../client/build")));
 app.get("/*",function(req,res){
