@@ -10,6 +10,8 @@ import ConversationRoutes from './routes/Conversation.js'
 import MessageRoutes from './routes/Message.js'
 
 const app = express();
+
+const __dirname = path.resolve();/*require for deployment*/
 dotenv.config();
 
 app.use(bodyParser.json({limit:'50mb',extended:true}));
@@ -21,6 +23,13 @@ app.use('/auth',AuthRoutes);
 app.use('/user',UserRoutes);
 app.use('/conversations',ConversationRoutes);
 app.use('/messages',MessageRoutes);
+
+app.use(express.static(path.join(__dirname,"../client/build")));
+app.get("/*",function(req,res){
+  res.sendFile(
+    path.join(__dirname,"../client/build/index.html"),
+  );
+});
 
 mongoose.set("strictQuery",false);
 const PORT = process.env.PORT || 5000;
