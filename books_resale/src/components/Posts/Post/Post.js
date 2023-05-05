@@ -164,7 +164,7 @@ const Post = ({ post , setCurrentId}) => {
       </CardContent>
       <Divider />
         <CardContent sx={{ textAlign: "left", fontWeight: "bold",marginTop:'12px', paddingTop: 0, paddingBottom: 0 }}>
-          <Typography sx={{ fontFamily: "Merriweather", fontWeight: "bold", display: 'flex', alignItems: 'center' }}>
+          <Typography sx={{ fontWeight: "bold", display: 'flex', alignItems: 'center' }}>
             Price :&nbsp;<span>&#8377;</span> {post.resale_price}
             <Box sx={{ flexGrow: 1 }} /> {/* Adds a flex-grow box to push the button to the end */}
             <Button

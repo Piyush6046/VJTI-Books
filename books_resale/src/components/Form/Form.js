@@ -34,7 +34,6 @@ const Form = ({currentId,setCurrentId}) => {
         clear();
       }else{
         dispatch(updatePost(currentId,postData,navigate));
-        dispatch(getPosts());
         clear();
       }
   }
@@ -60,7 +59,7 @@ const Form = ({currentId,setCurrentId}) => {
     if(post) {setPostData(post);}
   },[post])
 
-  const isNotFilled = !postData.year || !postData.branch || !postData.semester || !postData.resale_price || !postData.original_price ||!postData.book1 ||!postData.book1_pub ||postData.books_stack;
+  const isNotFilled = !postData.year || !postData.branch || !postData.semester || !postData.resale_price || !postData.original_price ||!postData.book1 ||!postData.book1_pub || !postData.books_stack;
 
 
   if(!user){

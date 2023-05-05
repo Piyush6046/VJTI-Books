@@ -45,9 +45,9 @@ const LandingPage = () => {
           <Button
             variant="outlined"
             sx={{
-              px: "15px",
-              py: "10px",
-              boxShadow: "0.5px 0.5px 0.5px 0.5px #8a795d",
+              px: "5px",
+              py: "8px",
+              // boxShadow: "0.5px 0.5px 0.5px 0.5px #8a795d",
               backgroundColor: "#ffbf00",
               color: "black",
               mt: "5%",
@@ -67,21 +67,21 @@ const LandingPage = () => {
           <Button
             variant="outlined"
             sx={{
-              px: "15px",
-              py: "10.5px",
-              boxShadow: "0.5px 0.5px 0.5px 0.5px #8a795d",
+              px: "5px",
+              py: "8px",
+              // boxShadow: "0.5px 0.5px 0.5px 0.5px #8a795d",
               backgroundColor: "#ffbf00",
               color: "black",
               mt: "5%",
               background: "transperant",
               borderRadius: "8px",
-              width:"25%"
+              width:"26.5%"
             }}
             onClick={handleClick}
           >
             {!user?.token ? <LockOpenIcon sx={{mr:"7px"}}/> : <LibraryBooksIcon sx={{mr:"6px"}}/>}
             <Typography fontSize={15} fontWeight={500}>
-              {!user?.token ? `Sign Up` : `Sell Books`}
+              {!user?.token ? `Sign In` : `Sell Books`}
             </Typography>
           </Button>
         </div>

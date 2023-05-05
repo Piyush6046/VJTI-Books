@@ -93,7 +93,7 @@ const PostDetails = () => {
           className="image_menu"
           sx={{
             backgroundColor: "#fcda71",
-            height: "65%",
+            // height: "65%",
             m: 2,
             ml: 8,
             px: 1.7,

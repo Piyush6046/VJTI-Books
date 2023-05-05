@@ -43,7 +43,7 @@ export const getSavedBooks = async(req,res) => {
   if(!req.userId) return res.json({message:"Unauthenticated access"});
   try {
     const user = await UserModel.findById(req.userId);
-    const savedPosts = await PostModel.find({'_id':{$in:user.savedbooks}});
+    const savedPosts = await PostModel.find({'_id':{$in:user.savedbooks}}).select('-book1_img -book2_img -book3_img -book4_img -book5_img');
     res.status(200).json(savedPosts);
   }catch(error){
     res.status(404).json(error);

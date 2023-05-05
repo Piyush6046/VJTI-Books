@@ -10,7 +10,6 @@ const SavedPosts = () => {
   console.log("savedposts are : ",savedposts);
   
   if(!savedposts?.length) {return  (<div style={{height:'100vh',width:'100%',margin:'25vh 90vh'}}><CircularProgress color='inherit' size='5em'/></div>);}
-
   return (
     <div className='PostsPage'>
       <Grid container maxWidth='xl' spacing={3} marginTop='5px' display='flex'>

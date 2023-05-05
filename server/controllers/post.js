@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 export const getPosts = async(req,res) => {
   try{
-    const posts = await PostModel.find();
+    const posts = await PostModel.find().select('-book1_img -book2_img -book3_img -book4_img -book5_img');
     res.status(200).json(posts);
   }catch(error){
     res.status(404).json(error);

@@ -11,6 +11,7 @@
 .image_menu{
   position: relative; /* Set position to relative to establish a positioning context */
   padding: 0px;
+  width: 500px;
 }
 
 /*
@@ -31,7 +32,8 @@ for border on image scroll section
 .main-image {
   /* width: 200px; */
   height: 300px;
-  width: fit-content;
+  width: auto;
+  max-width: 100%;
   margin: 20px;
   display: block;
   margin: auto;
@@ -45,7 +47,7 @@ li{
 
 .image_section{
   margin-top: 15px;
-  margin-bottom: 35px;
+  margin-bottom: 10px;
   display:flex;
   justify-content:center;
 }

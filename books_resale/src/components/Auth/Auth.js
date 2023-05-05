@@ -5,6 +5,8 @@ import logo from '../../images/logo.png'
 import { logIn , signUp } from "../../actions/authActions";
 import { Button, Input, Paper, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import GoogleIcon from '@mui/icons-material/Google';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 function Auth() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -138,8 +140,11 @@ function Auth() {
             *Confirm password is not same
           </span>
           <Button  type='submit' fullWidth variant='contained' style={{ backgroundColor:'#ffbf00',color:'black',border: "2px solid #ffbf00;", marginTop:'15px'}}>
-            {isSignUp ? 'Sign Up' : 'Log In'}
+            <LockOpenIcon sx={{mr:'10px'}}/>{isSignUp ? 'Sign Up' : 'Log In'}
           </Button>
+          {/* <Button fullWidth variant='contained' style={{ backgroundColor:'#ffbf00',color:'black',border: "2px solid #ffbf00;", marginTop:'-15px'}}>
+            <GoogleIcon sx={{mr:'10px'}}/>{isSignUp ? 'Sign Up With Google' : 'Sign In With Google'}
+          </Button> */}
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
              <Button onClick={ToggleLogin} sx={{marginTop:'-10px'}}>
                 {isSignUp ? 'Already have an account ? sign In' : `Don't have an account ? Sign Up`}

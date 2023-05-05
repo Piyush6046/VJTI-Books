@@ -28,7 +28,7 @@
 .landButtons{
   display: flex;
   gap: 8%;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .css-1dj7jpf-MuiPaper-root-MuiAppBar-root{
