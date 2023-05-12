@@ -1,11 +1,13 @@
 # unibooks
 <pre>
 Introduction : 
-    A web-based platform for buying and selling second-hand books among college students. Built using MERN stack
-    (MongoDB, Express, React, and Node.js), it offers a sleek interface with features like inbuilt chat powered by 
-    Socket.io and WhatsApp integration for real-time communication. Book listings include detailed information like
-    subjects, publication details, price, and photos for informed decisions. Users can save posts for later review. 
-    Aiming to streamline the process of buying and selling textbooks on campus,providing an affordable resource for students.
+    A web-based platform for buying and selling second-hand books among college students.
+    Built using MERN stack(MongoDB, Express, React, and Node.js), it offers a sleek
+    interface with features like inbuilt chat powered by Socket.io and WhatsApp 
+    integration for real-time communication. Book listings include detailed information 
+    like subjects, publication details, price, and photos for informed decisions. 
+    Users can save posts for later review.Aiming to streamline the process of buying and 
+    selling textbooks on campus,providing an affordable resource for students.
 Front-end : 
     ReactJS - Frontend framework
     Redux with useDispatch & useSelector hooks - For state management
@@ -23,6 +25,7 @@ Back-end :
  Chat Server :
     Socket.io - for real time communication
 </pre>
+Viceo link explaining my project : (https://vimeo.com/826306640?share=copy)
 Deployed Website Link : (https://unibooks.onrender.com)
 
 ![Screenshot (45)](https://github.com/Sagarpatil1206/unibooks/assets/86339914/e651223f-e4f6-4885-ac7b-e07e70052c71)
