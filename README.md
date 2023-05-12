@@ -1,11 +1,11 @@
 # unibooks
 <pre>
 Introduction : 
-    A web-based platform for buying and selling second-hand books among college students. 
-    Built using MERN stack (MongoDB, Express, React, and Node.js), it offers a sleek interface with features like inbuilt chat powered by Socket.io 
-    and WhatsApp integration for real-time communication. Book listings include detailed information like subjects, publication details, price, and 
-    photos for informed decisions. Users can save posts for later review. Aiming to streamline the process of buying and selling textbooks on campus,
-    providing an affordable resource for students.
+    A web-based platform for buying and selling second-hand books among college students. Built using MERN stack
+    (MongoDB, Express, React, and Node.js), it offers a sleek interface with features like inbuilt chat powered by 
+    Socket.io and WhatsApp integration for real-time communication. Book listings include detailed information like
+    subjects, publication details, price, and photos for informed decisions. Users can save posts for later review. 
+    Aiming to streamline the process of buying and selling textbooks on campus,providing an affordable resource for students.
 Front-end : 
     ReactJS - Frontend framework
     Redux with useDispatch & useSelector hooks - For state management
@@ -25,8 +25,8 @@ Back-end :
 </pre>
 Deployed Website Link : (https://unibooks.onrender.com)
 
-![Screenshot (48)](https://github.com/Sagarpatil1206/unibooks/assets/86339914/bee7c467-2c89-4c16-b929-8835aadc3877)
 ![Screenshot (45)](https://github.com/Sagarpatil1206/unibooks/assets/86339914/e651223f-e4f6-4885-ac7b-e07e70052c71)
+![Screenshot (48)](https://github.com/Sagarpatil1206/unibooks/assets/86339914/bee7c467-2c89-4c16-b929-8835aadc3877)
 ![Screenshot (44)](https://github.com/Sagarpatil1206/unibooks/assets/86339914/476d94d1-bc5b-45cc-8337-736204275e57)
 ![Screenshot (97)](https://github.com/Sagarpatil1206/unibooks/assets/86339914/f6e09246-75e2-4a81-b2e0-4da944889104)
 ![Screenshot (96)](https://github.com/Sagarpatil1206/unibooks/assets/86339914/6bae121d-f4d9-427a-8965-8eecbc7f6659)
