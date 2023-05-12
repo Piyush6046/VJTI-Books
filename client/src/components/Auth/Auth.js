@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import "./Auth.css";
 import logo from '../../images/logo.png'
 import { logIn , signUp } from "../../actions/authActions";
-import { Button, Input, Paper, Typography } from "@mui/material";
+import { Alert, Button, CircularProgress, Input, Paper, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import GoogleIcon from '@mui/icons-material/Google';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
@@ -14,6 +14,7 @@ function Auth() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user  = JSON.parse(localStorage.getItem('profile')); 
+  const {errorMessage , isLoadingTrue} = useSelector((state)=> state?.auth);
 
   const [authData, setAuthData] = useState({
     firstname: "",
@@ -36,11 +37,10 @@ function Auth() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if(isSignUp){
-      (authData.password === authData.confirmpassword) ? dispatch(signUp(authData)) : setConfirmPass(false);
+      (authData.password === authData.confirmpassword) ? dispatch(signUp(authData,navigate)) : setConfirmPass(false);
     }else{
-      dispatch(logIn(authData));
+      dispatch(logIn(authData,navigate));
     }
-    navigate('/');
   }
 
   const resetForm = () => {
@@ -53,6 +53,8 @@ function Auth() {
       confirmpassword: "",
     });
   }
+
+  if(isLoadingTrue) return (<div className='progress'><CircularProgress size='4em'/></div>)
 
   return (
     <div className="Auth">
@@ -70,6 +72,8 @@ function Auth() {
       <div className="a-right">
         <form className="infoForm authForm" onSubmit={handleSubmit}>
           <h2 className="webname">{isSignUp ? `Sign Up` : `Log In`}</h2>
+
+          {errorMessage?.length && <Alert severity="warning" style={{marginTop:'10px',width:'90%'}}>{errorMessage}</Alert>}
 
           {isSignUp && (
             <div>

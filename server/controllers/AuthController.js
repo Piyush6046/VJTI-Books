@@ -49,7 +49,7 @@ export const loginUser = async (req, res) => {
         //server cant process due to client error
       }
     } else {
-      res.status(404).json("User not found");
+      res.status(404).json({message:"User doesn't exist"});
     }
   } catch (error) {
     console.log(error);

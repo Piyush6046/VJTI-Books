@@ -1,4 +1,4 @@
-import {AUTH_START,AUTH_SUCCESS,AUTH_FAIL} from '../actions/actionConstants'
+import {AUTH_START,AUTH_SUCCESS,AUTH_FAIL,ERROR} from '../actions/actionConstants'
 
 const authReducer = (state = {authData:null,loading:false,error:false},action) => {
   switch(action.type){
@@ -11,6 +11,9 @@ const authReducer = (state = {authData:null,loading:false,error:false},action) =
       return {...state,loading:false,error:true};
     case "LOGOUT" :
       return {...state,authData:null};
+    case ERROR :
+      console.log(action?.payload);
+      return {authData:null,errorMessage:action.payload,isLoadingTrue:false};
     default :
       return state;
   }
