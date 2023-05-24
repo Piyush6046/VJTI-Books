@@ -24,9 +24,11 @@ Back-end :
     Dotenv - To load environment variables from a .env file
  Chat Server :
     Socket.io - for real time communication
-</pre>
-Viceo link explaining my project : (https://vimeo.com/826306640?share=copy)
+    
+Video link explaining my project : (https://vimeo.com/826306640?share=copy)
 Deployed Website Link : (https://unibooks.onrender.com)
+</pre>
+
 
 ![Screenshot (45)](https://github.com/Sagarpatil1206/unibooks/assets/86339914/e651223f-e4f6-4885-ac7b-e07e70052c71)
 ![Screenshot (48)](https://github.com/Sagarpatil1206/unibooks/assets/86339914/bee7c467-2c89-4c16-b929-8835aadc3877)
