@@ -27,7 +27,8 @@ const Messenger = () => {
   // console.log(conversations);
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8900");
+    socket.current = io("https://unibooks.onrender.com");
+    // socket.current = io("ws://localhost:8900");
     socket.current.emit("addUser", userId);
     socket.current.on("getMessage", (data) => {
       console.log("heeeee");

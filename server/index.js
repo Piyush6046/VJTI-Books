@@ -9,6 +9,7 @@ import UserRoutes from './routes/User.js'
 import ConversationRoutes from './routes/Conversation.js'
 import MessageRoutes from './routes/Message.js'
 import path from 'path'
+import http from 'http';
 import { Server } from 'socket.io';
 
 const app = express();
@@ -20,9 +21,10 @@ app.use(bodyParser.json({limit:'50mb',extended:true}));
 app.use(bodyParser.urlencoded({limit:'50mb',extended:true}));
 app.use(cors());
 
-const io = new Server(8900, {
+const server = http.createServer(app);
+const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://unibooks.onrender.com",
   },
 });
 
