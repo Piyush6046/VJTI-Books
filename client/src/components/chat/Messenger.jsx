@@ -26,83 +26,80 @@ const Messenger = () => {
   // console.log(userId);
   // console.log(conversations);
 
-  useEffect(()=>{
+  useEffect(() => {
     socket.current = io("ws://localhost:8900");
-    socket.current.on("getMessage",(data)=>{
+    socket.current.emit("addUser", userId);
+    socket.current.on("getMessage", (data) => {
       console.log("heeeee");
       console.log(data);
       setArrivalMessage({
-        sender : data.senderId,
-        text : data.text,
-        createdAt : Date.now(),
-      })
+        sender: data.senderId,
+        text: data.text,
+        createdAt: Date.now(),
+      });
     });
-    window.scrollTo(0, 0);
-  },[])
-
-  useEffect(()=>{
-    arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
-    setMessages((prev)=>[...prev,arrivalMessage]);
-  },[arrivalMessage,currentChat]);
-
-  useEffect(()=>{
-    socket.current.emit("addUser",userId);
-    socket.current?.on("getUsers",(users)=>{
+    socket.current.on("getUsers", (users) => {
       setOnlineUsers(users);
-      // console.log(users);
     });
-  },[userId]);
-
-  useEffect(() => {
-    dispatch(getConversation(userId))
-  }, [userId, dispatch]);
-
-  useEffect(() => {
-    const getMessages = async () => {
-      const messages = await dispatch(fetchMessages(currentChat?._id));
-      setMessages(messages);
-    }
-    getMessages();
-  }, [currentChat]);
-
-  useEffect(()=>{
-    socket.current?.on("welcome",(message)=>{
+    socket.current.on("welcome", (message) => {
       console.log(message);
-    })
-  },[socket]);
-
-  console.log(socket);
-
+    });
+  
+    return () => {
+      socket.current.disconnect(); // Clean up the socket connection when the component unmounts
+    };
+  }, [userId]);
+  
+  useEffect(() => {
+    if (arrivalMessage && currentChat?.members.includes(arrivalMessage.sender)) {
+      setMessages((prev) => [...prev, arrivalMessage]);
+    }
+  }, [arrivalMessage, currentChat]);
+  
+  useEffect(() => {
+    dispatch(getConversation(userId));
+  }, [userId, dispatch]);
+  
+  useEffect(() => {
+    if (currentChat) {
+      const getMessages = async () => {
+        const messages = await dispatch(fetchMessages(currentChat._id));
+        setMessages(messages);
+      };
+      getMessages();
+    } else {
+      setMessages([]); // Clear messages when there is no active chat
+    }
+  }, [currentChat, dispatch]);
+  
   const handleSendMessage = async (e) => {
     e.preventDefault();
     const message = {
-      conversationId:currentChat?._id,
-      sender:userId,
-      text:newMessage
+      conversationId: currentChat?._id,
+      sender: userId,
+      text: newMessage,
     };
-
-    const receiverId = currentChat?.members.find((member)=>member!==userId);
-
-    socket.current.emit("sendMessage",{
-      senderId : userId,
-      receiverId : receiverId,
-      text : newMessage
-    })
-
+  
+    const receiverId = currentChat?.members.find((member) => member !== userId);
+  
+    socket.current.emit("sendMessage", {
+      senderId: userId,
+      receiverId: receiverId,
+      text: newMessage,
+    });
+  
     try {
-      const {data} = await sendMessage(message);
-      setMessages([...messages,data]);
+      const { data } = await sendMessage(message);
+      setMessages([...messages, data]);
       setNewMessage("");
     } catch (error) {
       console.log(error);
     }
-    // const response = await sendMessage(message);
-    // 
-  }
-
-  useEffect(()=>{
-      scrollRef.current?.scrollIntoView({behavior:'smooth'});
-  },[messages]);
+  };
+  
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
   // console.log("messages are :" , messages);
 
   if(!user){
