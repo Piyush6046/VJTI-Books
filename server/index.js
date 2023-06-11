@@ -9,7 +9,6 @@ import UserRoutes from './routes/User.js'
 import ConversationRoutes from './routes/Conversation.js'
 import MessageRoutes from './routes/Message.js'
 import path from 'path'
-import http from 'http';
 import { Server } from 'socket.io';
 
 const app = express();
@@ -20,13 +19,6 @@ dotenv.config();
 app.use(bodyParser.json({limit:'50mb',extended:true}));
 app.use(bodyParser.urlencoded({limit:'50mb',extended:true}));
 app.use(cors());
-
-const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "https://unibooks.onrender.com",
-  },
-});
 
 app.use('/api/posts',PostRoutes);
 app.use('/api/auth',AuthRoutes);
@@ -44,45 +36,54 @@ app.get("/*",function(req,res){
 mongoose.set("strictQuery",false);
 const PORT = process.env.PORT || 5000;
 
-let users = [];
+let server1;
+const server = mongoose.connect(process.env.CONNECTION_URL,{useNewUrlParser: true,useUnifiedTopology:true})
+	.catch((error) => console.log(`${error} did not connect`));
 
-const addUser = (userId, socketId) => {
-  !users.some((user) => user.userId === userId) &&
-    users.push({ userId, socketId });
-};
-
-const removeUser = (socketId) => {
-  users = users.filter((user) => user.socketId !== socketId);
-};
-
-const getUser = (userId) => {
-  return users.find((user) => user.userId === userId);
-};
-
-io.on("connection", (socket) => {
-  console.log("User connected");
-
-  socket.on("addUser", (userId) => {
-    addUser(userId, socket.id);
-    io.emit("getUsers", users);
+	server1 = app.listen(PORT,()=>console.log(`Server is running on a PORT : ${PORT}`));
+  console.log(server1);
+  const io = new Server(server1, {
+    cors: {
+      origin: ["http://localhost:3000","https://unibooks.onrender.com"],
+    },
   });
 
-  socket.on("sendMessage", ({ senderId, receiverId, text }) => {
-    const user = getUser(receiverId);
-    console.log("mera");
-    io.to(user?.socketId).emit("getMessage", {
-      senderId,
-      text,
+  let users = [];
+
+  const addUser = (userId, socketId) => {
+    !users.some((user) => user.userId === userId) &&
+      users.push({ userId, socketId });
+  };
+  
+  const removeUser = (socketId) => {
+    users = users.filter((user) => user.socketId !== socketId);
+  };
+  
+  const getUser = (userId) => {
+    return users.find((user) => user.userId === userId);
+  };
+  
+  io.on("connection", (socket) => {
+    console.log("User connected");
+  
+    socket.on("addUser", (userId) => {
+      addUser(userId, socket.id);
+      io.emit("getUsers", users);
+    });
+  
+    socket.on("sendMessage", ({ senderId, receiverId, text }) => {
+      const user = getUser(receiverId);
+      console.log("mera");
+      io.to(user?.socketId).emit("getMessage", {
+        senderId,
+        text,
+      });
+    });
+  
+    socket.on("disconnect", () => {
+      console.log("User disconnected");
+      removeUser(socket.id);
+      io.emit("getUsers", users);
     });
   });
-
-  socket.on("disconnect", () => {
-    console.log("User disconnected");
-    removeUser(socket.id);
-    io.emit("getUsers", users);
-  });
-});
-
-mongoose.connect(process.env.CONNECTION_URL,{useNewUrlParser: true,useUnifiedTopology:true})
-	.then(()=>app.listen(PORT,()=>console.log(`Server is running on a PORT : ${PORT}`)))
-	.catch((error) => console.log(`${error} did not connect`));
+  
